@@ -3,6 +3,7 @@
 ## 仕様
 書籍管理アプリ
 - 本の検索機能
+  ->googlebooksAPIを使用した検索方法　閲覧サイトURL(https://python-muda.com/python/api-book-search-ep1/)
   ->ISBNを使用してなら検索可能？
   閲覧サイトURL(https://qiita.com/takafi/items/10749288cca771d340a8)
   (https://labo.kon-ruri.co.jp/google-books-apis/)
