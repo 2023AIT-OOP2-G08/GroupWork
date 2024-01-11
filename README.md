@@ -4,7 +4,8 @@
 書籍管理アプリ
 - 本の検索機能
   ->ISBNを使用してなら検索可能？
-  閲覧サイトURL(https://qiita.com/takafi/items/10749288cca771d340a8)(https://labo.kon-ruri.co.jp/google-books-apis/)
+  閲覧サイトURL(https://qiita.com/takafi/items/10749288cca771d340a8)
+  (https://labo.kon-ruri.co.jp/google-books-apis/)
 - 本の登録機能
 ->多分できる
 - 本の表紙は画像表示したい
