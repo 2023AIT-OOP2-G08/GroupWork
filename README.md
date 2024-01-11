@@ -16,7 +16,8 @@
 - 読んでない本のカウント
 ->
 - 読書記録
-->
+->APIを利用して多分可能？参考になる？
+閲覧サイト(https://tech-memo.yonayona.biz/posts/google-books-api)
 - しおり機能
 ->
 - 本の画像から検索
