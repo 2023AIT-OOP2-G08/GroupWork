@@ -182,19 +182,19 @@ GoogleBooksApiTest.pyにGoogleBooksAPIのテストコードを書いておきま
 モジュール化 : 第3回講義資料、JSONデータの扱い方 : 第2回講義資料
 - **PythonでTkinterを使ってめちゃくちゃ簡単にGUIアプリを作る**<br>
 https://daeudaeu.com/python_tkinter/
-**Tkinterで画面切り替え・画面遷移**
+- **Tkinterで画面切り替え・画面遷移**<br>
 https://qiita.com/seisantaro/items/74ed83fec3d126553245
-**tkinterで画像を表示させる**
+- **tkinterで画像を表示させる**<br>
 https://betashort-lab.com/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/python/tkinter%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95/
-**【Python】tkinter：テーブル（表）の作成方法（ttk.Treeview）**
+- **【Python】tkinter：テーブル（表）の作成方法（ttk.Treeview）**<br>
 https://office54.net/python/tkinter/ttk-treeview-table
-**GoogleBooksAPIリファレンス**
+- **GoogleBooksAPIリファレンス**<br>
 https://developers.google.com/books/docs/v1/using?hl=ja
-**GoogleBooksAPIを使う**
+- **GoogleBooksAPIを使う**<br>
 https://qiita.com/frost_star/items/71ed64e1d040a7911c06
-**GoogleBooksAPIを活用して、検索ツールの作成**
+- **GoogleBooksAPIを活用して、検索ツールの作成**<br>
 https://www.mogura-lab.com/330/
-**Pythonで検索してみよう ~Google Books APIを使ってみる ep1~**
+- **Pythonで検索してみよう ~Google Books APIを使ってみる ep1~**<br>
 https://python-muda.com/python/api-book-search-ep1/
 
 ## 開発する時やって欲しいこと
