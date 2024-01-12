@@ -180,7 +180,7 @@ PythonでのTkinter、GoogleBooksAPIに関するサイトをまとめました�
 GoogleBooksApiTest.pyにGoogleBooksAPIのテストコードを書いておきました。
 取得したデータはBookselfTest.jsonに保存してあります。
 モジュール化 : 第3回講義資料、JSONデータの扱い方 : 第2回講義資料
-**PythonでTkinterを使ってめちゃくちゃ簡単にGUIアプリを作る**<br>
+- **PythonでTkinterを使ってめちゃくちゃ簡単にGUIアプリを作る**<br>
 https://daeudaeu.com/python_tkinter/
 **Tkinterで画面切り替え・画面遷移**
 https://qiita.com/seisantaro/items/74ed83fec3d126553245
