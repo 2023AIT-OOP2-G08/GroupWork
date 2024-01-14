@@ -62,7 +62,7 @@ PC用GUIアプリ
 | ---------- | ---------- | ---- |
 | Tkinter    |            |  GUI実装に使用    |
 | json       |            |  JSONデータを扱うために使用    |
-| requests   |            |   GoogleBooksAPIAPIにアクセスするために使用   |
+| requests   |            |   GoogleBooksAPIにアクセスするために使用   |
 
 
 ## システム機能一覧
