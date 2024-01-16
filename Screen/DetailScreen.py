@@ -1,20 +1,31 @@
 import tkinter as tk
 
+# Tkクラス生成
 root = tk.Tk()
+
+# 画面タイトル
 root.title("書籍詳細画面")
+
+# 画面サイズ
 root.geometry("600x600")
 
+# タイトルの作成
 label1 = tk.Label(root, text="書籍管理アプリ", font=("Helvetica", 20, "bold"))
 label1.place(x=20, y=25)
 
 label2 = tk.Label(root, text="書籍詳細画面", font=("Helvetica", 30, "bold"))
 label2.place(x=207, y=20)
 
+
+# 項目ごとのラベルの作成
+# (label3〜9までの下のメッセージに変換させたものは、jsonから得た情報を
+# 出力する際のコード)
+
 label3 = tk.Label(root, text="タイトル : title", font=("Helvetica", 17, "bold"))
 label3.place(x=180, y=140)
 
-label_title = tk.Label(root, text="jsonから引用(タイトル)", font=("Helvetica", 12, "bold"))
-label_title.place(x=180, y=180)
+# label_title = tk.Label(root, text="jsonから引用(タイトル)", font=("Helvetica", 12, "bold"))
+# label_title.place(x=180, y=180)
 
 label4 = tk.Label(root, text="著者 : authors", font=("Helvetica", 17, "bold"))
 label4.place(x=400, y=140)
@@ -52,4 +63,5 @@ label9.place(x=50, y=440)
 # label_description = tk.Label(root, text="jsonから引用(要約)", font=("Helvetica", 12, "bold"))
 # label_description.place(x=50, y=480)
 
+# メインループ実行
 root.mainloop()
