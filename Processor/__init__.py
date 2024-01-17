@@ -5,3 +5,10 @@ __all__ = [
 ]
 #from .ファイル名 import モジュール名
 """
+
+
+__all__ = [
+    'bookshelfscreen',
+]
+
+from .bookshelfscreen import bookshelfscreen

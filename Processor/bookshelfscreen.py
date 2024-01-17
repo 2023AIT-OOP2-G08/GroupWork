@@ -1,6 +1,5 @@
 import json
 
-__all__ = ['bookshelfscreen']
 
 def bookshelfscreen(json_file_path):
     with open(json_file_path, 'r', encoding='utf-8') as file:  #jsonファイルを開ける
