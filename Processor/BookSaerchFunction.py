@@ -61,34 +61,39 @@ def parse_book_info(item):
         'isbn': isbn
     }
 
-# 書籍情報を格納するリスト
-books_info1 = []
-books_info2 = []
-books_info3 = []
+#お気に入り機能(JSONファイルに保存)..リーダーのまんまです（；；）
+def write_to_json(data, filename):
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
-# 各検索クエリに対して書籍情報を取得
-book_info = search_books_by_isbn('9784873115658')
-books_info1.extend(book_info)
+# # 書籍情報を格納するリスト
+# books_info1 = []
+# books_info2 = []
+# books_info3 = []
 
-book_info = search_books_by_title('リーダブルコード')
-books_info2.extend(book_info)
+# # 各検索クエリに対して書籍情報を取得
+# book_info = search_books_by_isbn('9784873115658')
+# books_info1.extend(book_info)
 
-book_info = search_books_by_authors('["Dustin Boswell","Trevor Foucher"]')
-books_info3.extend(book_info)
+# book_info = search_books_by_title('リーダブルコード')
+# books_info2.extend(book_info)
 
-# 取得した書籍情報を表示
-for book in books_info1:
-    print(book)
-    print('------------------------')
+# book_info = search_books_by_authors('["Dustin Boswell","Trevor Foucher"]')
+# books_info3.extend(book_info)
 
-print('------------------------')
+# # 取得した書籍情報を表示
+# for book in books_info1:
+#     print(book)
+#     print('------------------------')
 
-for book in books_info2:
-    print(book)
-    print('------------------------')
+# print('------------------------')
 
-print('------------------------')
+# for book in books_info2:
+#     print(book)
+#     print('------------------------')
 
-for book in books_info3:
-    print(book)
-    print('------------------------')
+# print('------------------------')
+
+# for book in books_info3:
+#     print(book)
+#     print('------------------------')
