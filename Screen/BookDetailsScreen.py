@@ -104,5 +104,16 @@ label_description = tk.Label(
 )
 label_description.place(x=50, y=480)
 
+
+# 画面遷移(書籍詳細画面のウィンドウを閉じる)
+def close_window():
+    root.destroy()
+
+
+button = tk.Button(text="前の画面へ", command=close_window)
+button.pack()
+button.place(x=20, y=80)
+
+
 # メインループ実行
 root.mainloop()
