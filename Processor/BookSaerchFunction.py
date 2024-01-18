@@ -60,13 +60,12 @@ def parse_book_info(item):
     }
 
 # # 書籍情報を格納するリスト
-# books_info1 = []
-# books_info2 = []
+#books_info1 = []
+#books_info2 = []
 # books_info3 = []
 
 # # 各検索クエリに対して書籍情報を取得
-# book_info = search_books_by_isbn('9784873115658')
-# books_info1.extend(book_info)
+#
 
 # book_info = search_books_by_title('リーダブルコード')
 # books_info2.extend(book_info)
