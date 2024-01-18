@@ -1,7 +1,5 @@
 import requests
 # print(requests.__version__)  -> 2.31.0
-import json
-# print(json.__version__)  -> 2.0.9
 
 #書籍検索機能_ISBN
 def search_books_by_isbn(isbn):
