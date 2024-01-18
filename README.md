@@ -203,3 +203,6 @@ https://python-muda.com/python/api-book-search-ep1/
 	- 動作説明
 	- 関数の使い方
 	- 変数の使用用途
+
+## 作業進捗
+
