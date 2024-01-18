@@ -18,6 +18,9 @@ def bookshelfscreen(json_file_path):
 
     return info_list #リストを返す
 
-def remove_constant_elements(input_list, constant):
+def remove_index_elements(input_list, index):
     #指定したindexのlistを削除する
-    return [ input_list[:constant] + input_list[constant + 1:]]
+    #input_list お気に入りした本を格納しているlist
+    #constant 削除するデータのindexnumber
+    input_list.pop(index)
+    return input_list
