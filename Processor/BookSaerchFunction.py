@@ -61,11 +61,6 @@ def parse_book_info(item):
         'isbn': isbn
     }
 
-#お気に入り機能(JSONファイルに保存)..リーダーのまんまです（；；）
-def write_to_json(data, filename):
-    with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
-
 # # 書籍情報を格納するリスト
 # books_info1 = []
 # books_info2 = []
