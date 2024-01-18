@@ -31,7 +31,7 @@ def search_books_by_title(title):
         books_info.append(book_info)
     return books_info
 
-#書籍検索機能_タイトル
+#書籍検索機能_著者名
 def search_books_by_authors(authors):
     url = f'https://www.googleapis.com/books/v1/volumes?q=authors:{authors}'
     response = requests.get(url).json()
