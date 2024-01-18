@@ -60,7 +60,7 @@ PC用GUIアプリ
 ## 使用ライブラリ
 | ライブラリ | バージョン | 備考 |
 | ---------- | ---------- | ---- |
-| Tkinter    |            |  GUI実装に使用    |
+| Tkinter    |     8.6       |  GUI実装に使用    |
 | json       |            |  JSONデータを扱うために使用    |
 | requests   |            |   GoogleBooksAPIにアクセスするために使用   |
 
