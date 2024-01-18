@@ -9,8 +9,8 @@ __all__ = [
 
 __all__ = [
     'bookshelfscreen',
-    'remove_constant_elements',
+    'remove_index_elements',
 ]
 
 from .bookshelfscreen import bookshelfscreen 
-from .bookshelfscreen import remove_constant_elements
+from .bookshelfscreen import remove_index_elements
