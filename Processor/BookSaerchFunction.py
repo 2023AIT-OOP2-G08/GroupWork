@@ -46,17 +46,17 @@ def search_books_by_authors(authors):
 #検索結果を返す
 def parse_book_info(item):
     volume_info = item.get('volumeInfo', {})
-    title = volume_info.get('title', 'No title available')
-    authors = volume_info.get('authors', ['No authors available'])
-    image_links = volume_info.get('imageLinks', {})
-    cover_image_url = image_links.get('thumbnail', 'No cover image available')
-    isbn = volume_info.get('industryIdentifiers', [{'identifier': 'No ISBN'}])[0].get('identifier')
+    title = volume_info.get('title', 'No title available')#タイトル
+    authors = volume_info.get('authors', ['No authors available'])#著者名
+    image_links = volume_info.get('imageLinks', {})#画像リンク
+    cover_image_url = image_links.get('thumbnail', 'No cover image available')#画像
+    isbn = volume_info.get('industryIdentifiers', [{'identifier': 'No ISBN'}])[0].get('identifier')#ISBN
 
     return {
-        'cover_image_url': cover_image_url,
-        'title': title,
-        'authors': authors,
-        'isbn': isbn
+        'cover_image_url': cover_image_url,#画像
+        'title': title,#タイトル
+        'authors': authors,#著者名
+        'isbn': isbn#ISBN
     }
 
 # # 書籍情報を格納するリスト
