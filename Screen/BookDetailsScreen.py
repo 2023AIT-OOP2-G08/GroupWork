@@ -15,6 +15,8 @@ data_list = [
     "http://books.google.com/books/content?id=oFrK2r8rQbEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
 ]
 
+# 著者名が表記されていて配列でリストに格納されている場合
+# 要素の間に改行を加えて一つの文に変換する
 if data_list[2] != "No publisher information available":
     data_list[2] = "\n".join(data_list[2])
 
@@ -55,9 +57,7 @@ label_photo.place(x=20, y=140)
 
 
 # 項目ごとのラベルの作成
-# (label3〜9までの下のメッセージに変換させたものは、jsonから得た情報を
-# 出力する際のコード)
-
+# タイトルの項目名、jsonから得た情報の表示ラベル
 label3 = tk.Label(root, text="タイトル : title", font=("Helvetica", 17, "bold"))
 label3.place(x=180, y=140)
 
@@ -66,36 +66,42 @@ label_title = tk.Label(
 )
 label_title.place(x=180, y=180)
 
+# 著者の項目名、jsonから得た情報の表示ラベル
 label4 = tk.Label(root, text="著者 : authors", font=("Helvetica", 17, "bold"))
 label4.place(x=400, y=140)
 
 label_authors = tk.Label(root, text=(data_list[2]), font=("Helvetica", 12, "bold"))
 label_authors.place(x=400, y=180)
 
+# ISBN-13の項目名、jsonから得た情報の表示ラベル
 label5 = tk.Label(root, text="ISBN-13 : isbn_13", font=("Helvetica", 17, "bold"))
 label5.place(x=180, y=240)
 
 label_isbn_13 = tk.Label(root, text=data_list[1], font=("Helvetica", 12, "bold"))
 label_isbn_13.place(x=180, y=280)
 
+# 出版社の項目名、jsonから得た情報の表示ラベル
 label6 = tk.Label(root, text="出版社 : publisher", font=("Helvetica", 17, "bold"))
 label6.place(x=400, y=240)
 
 label_publisher = tk.Label(root, text=data_list[6], font=("Helvetica", 12, "bold"))
 label_publisher.place(x=400, y=280)
 
+# ページ数の項目名、jsonから得た情報の表示ラベル
 label7 = tk.Label(root, text="ページ数 : page_count", font=("Helvetica", 17, "bold"))
 label7.place(x=180, y=340)
 
 label_page_count = tk.Label(root, text=data_list[4], font=("Helvetica", 12, "bold"))
 label_page_count.place(x=180, y=380)
 
+# 出版日の項目名、jsonから得た情報の表示ラベル
 label8 = tk.Label(root, text="出版日 : published_date", font=("Helvetica", 17, "bold"))
 label8.place(x=400, y=340)
 
 label_published_date = tk.Label(root, text=data_list[3], font=("Helvetica", 12, "bold"))
 label_published_date.place(x=400, y=380)
 
+# 要約の項目名、jsonから得た情報の表示ラベル
 label9 = tk.Label(root, text="要約 : description", font=("Helvetica", 17, "bold"))
 label9.place(x=50, y=440)
 
@@ -110,6 +116,7 @@ def close_window():
     root.destroy()
 
 
+# 画面遷移用のボタン
 button = tk.Button(text="前の画面へ", command=close_window)
 button.pack()
 button.place(x=20, y=80)
