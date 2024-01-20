@@ -9,8 +9,13 @@ __all__ = [
 
 __all__ = [
     'bookshelfscreen',
-    'BookSearchFunction',
+    'remove_index_elements',
+    'add_information',
+    'append_to_json',
+    'search_books_by_authors',
+    'search_books_by_isbn',
+    'search_books_by_title',
 ]
 
-from .bookshelfscreen import bookshelfscreen
-from .BookSaerchFunction import search_books_by_authors,search_books_by_isbn,search_books_by_title,parse_book_info
+from .bookshelfscreen import bookshelfscreen,remove_index_elements,add_information,append_to_json,bookshelfscreen
+from .BookSaerchFunction import search_books_by_authors,search_books_by_isbn,search_books_by_title
