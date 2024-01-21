@@ -5,6 +5,8 @@ class BaseScreen:
     画面の基底クラスです。
     画面の基本的な機能を提供します。
     画面作成担当者はこのクラスを継承してください。
+    from BaseScreen import BaseScreenでインポート
+    class クラス名(BaseScreen):
     """
     def __init__(self, root: tk.Tk):
         """
