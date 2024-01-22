@@ -1,6 +1,6 @@
-import tkinter
-from tkinter import ttk  # ttkモジュールからTreeViewをインポート
-# from PIL import Image, ImageTk # 画像表示ライブラリ
+import tkinter as tk
+from tkinter import ttk
+from BaseScreen import BaseScreen  # BaseScreenクラスをインポート
 
 class BookShelfScreen(BaseScreen):
     def __init__(self, root: tk.Tk):
