@@ -2,65 +2,54 @@ import tkinter
 from tkinter import ttk  # ttkモジュールからTreeViewをインポート
 # from PIL import Image, ImageTk # 画像表示ライブラリ
 
+class BookShelfScreen(BaseScreen):
+    def __init__(self, root: tk.Tk):
+        # BaseScreenクラスのコンストラクタを呼び出す
+        super().__init__(root)
+
+    def create_widgets(self):
+        # create_widgetsメソッドをオーバーライドしてBookShelfScreenのウィジェットを定義する
+        label2 = tk.Label(self.frame, text="本棚画面", font=("Helvetica", 20, "bold"))
+        label2.place(x=250, y=20)
+
+        tbl = ttk.Treeview(self.frame)
+        tbl.place(x=50, y=80)
+
+        tbl['columns'] = ('cover', 'title', 'number', 'button')
+        tbl['show'] = 'headings'
+        tbl.heading('cover', text='表紙')
+        tbl.heading('title', text='タイトル')
+        tbl.heading('number', text='ISBN-13')
+        tbl.heading('button', text='削除ボタン')
+
+        tbl.column('cover', width=150)
+        tbl.column('title', width=100)
+        tbl.column('number', width=100)
+        tbl.column('button', width=100)
+
+        tbl.insert('', 'end', values=('本A', '本Aタイトル', '本Aコード', '削除'))
+
+        tbl.bind('<ButtonRelease-1>', lambda event: self.delete_item(tbl))  # tblを引数にしてdelete_itemメソッドを呼び出す
+
+    def delete_item(self, tbl):
+        selected_item = tbl.selection()
+        if selected_item:
+            tbl.delete(selected_item)
 
 # Tkクラス生成
-root = tkinter.Tk()
-# 画面サイズ
-root.geometry('500x300')
+root = tk.Tk()
+
 # 画面タイトル
-root.title('検索ページ')
+root.title("書籍管理アプリ")
 
-# ラベル
-lbl = tkinter.Label(text='検索')
-lbl.pack()
+# 画面サイズ
+root.geometry("800x500")
 
-### テキストボックス
-txt = tkinter.Entry(width=20)
-txt.pack()
+# BookShelfScreenクラスのインスタンスを作成
+bookshelf_screen = BookShelfScreen(root)
 
-###ボタン
-# クリックしたときに実行する関数
-def button_click():
-    # print(txt.get()) # debug
-    tree.insert(parent='',index='end',values=(4,'TEST4',txt.get(),button))
+# BookShelfScreenを表示
+bookshelf_screen.screen_show()
 
-# ボタン
-button = tkinter.Button(root, text="ボタン", command=button_click)
-button.pack()
-
-### 表
-tree = ttk.Treeview(root, column=('COVER','TITLE','CODE','BUTTON'), show='headings')
-
-# 表のヘッダー
-tree.heading('COVER',text='表紙')
-tree.heading('TITLE',text='タイトル')
-tree.heading('CODE',text='ISBN-13')
-tree.heading('BUTTON',text='登録ボタン')
-
-# 表のデータ
-tree.insert(parent='',index='end',values=(1,'TEST1','テスト1',button.pack()))
-tree.insert(parent='',index='end',values=(2,'TEST2','テスト2',button.pack()))
-tree.insert(parent='',index='end',values=(3,'TEST3','テスト3',button.pack()))
-
-tree.pack()
-
-### 画像
-# # 画像の読み込み
-# image_path = "https://ja.pngtree.com/freepng/small-url-icon-opened-on-the-computer_4424025.html"  # 画像のパスを指定してください
-# original_image = Image.open(image_path)
-
-# # 画像をリサイズ（適宜、ウィンドウサイズに合わせるなど）
-# resized_image = original_image.resize((300, 200), Image.ANTIALIAS)
-
-# # 画像をTkinter PhotoImageオブジェクトに変換
-# tk_image = ImageTk.PhotoImage(resized_image)
-
-# # 画像をラベルに表示
-# image_label = tkinter.Label(root, image=tk_image)
-# image_label.pack()
-
-
-
-# 表示
+# メインループ実行
 root.mainloop()
-
