@@ -6,8 +6,15 @@ import io # 元から入ってるはず
 from BaseScreen import BaseScreen # 親クラス
 """
 TODO: 画面遷移するクラスをインポート
-from BookDetailsScreen import BookDetailsScreen # 詳細画面
+from HomeScreen import HomeScreen # ホーム画面
 from BookShelfScreen import BookShelfScreen # 本棚画面
+
+"""
+from BookDetailsScreen import BookDetailsScreen # 詳細画面
+
+"""
+TODO: 検索機能のmoduleをインポート
+from ../Processor/BookSearchFunction.py import search_func # 詳細画面
 
 """
 
@@ -18,6 +25,7 @@ BORDER = tk.GROOVE # 枠線
 class BookSearchScreen(BaseScreen):
 
     def create_widgets(self):
+
 
         # テストデータ
         test_data = [
@@ -207,7 +215,6 @@ class BookSearchScreen(BaseScreen):
             }
         ]
 
-
         """
 
         TODO: この画面の設定
@@ -215,9 +222,9 @@ class BookSearchScreen(BaseScreen):
 
         """
         ### 画面設定
-        root.title('検索ページ') # 画面タイトル
-        root.geometry(SCREEN_SIZE) # 画面サイズ
-        root.option_add('*font', [FONT_TYPE, 16]) # フォント
+        self.root.title('検索ページ') # 画面タイトル
+        self.root.geometry(SCREEN_SIZE) # 画面サイズ
+        self.root.option_add('*font', [FONT_TYPE, 16]) # フォント
 
         book_search_screen_frame = self.frame
 
@@ -230,12 +237,20 @@ class BookSearchScreen(BaseScreen):
         def trans_home_button(): # ホーム画面遷移
             """
             TODO: 元の画面に戻る(ホーム画面？？)
+            windowを生成せずに遷移？
 
-            # 画面を非表示(Home画面が表示されるかわからない)
+            # Search画面を非表示
             self.screen_hide()
 
+            # Home画面インスタンス化
+            home_screen = HomeScreen(self.root)
+            # 画面を表示
+            home_screen.screen_show()
+
             """
-            print('go home!!')
+            # Search画面を非表示
+            self.screen_hide()
+            print('go home!!') # debug
 
 
         trans_home_button = tk.Button(title_frame, text='元の画面へ', command=trans_home_button)
@@ -248,16 +263,20 @@ class BookSearchScreen(BaseScreen):
             """
 
             TODO: 本棚画面へ遷移
+            windowを生成せずに遷移？
 
-            BaseScreenを継承してればいけるはず(祈り)
+            # Search画面を非表示
+            self.screen_hide()
 
-            # BookShelfScreenクラスをインスタンス化
-            book_Shelf_screen = BookShelfScreen(root)
+            # Shelf画面インスタンス化
+            shelf_screen = BookShelfScreen(self.root)
             # 画面を表示
-            book_shelf_screen.screen_show()
+            shelf_screen.screen_show()
 
             """
-            print('go shelf!!')
+            # Search画面を非表示
+            self.screen_hide()
+            print('go shelf!!') # debug
 
         trans_shelf_button = tk.Button(title_frame, text='本棚画面へ', command=trans_shelf_button)
         trans_shelf_button.pack(side='left')
@@ -317,26 +336,20 @@ class BookSearchScreen(BaseScreen):
         def detail_button(item): # 詳細を表示
             """
 
-            TODO: DtailScreenを表示
+            DtailScreenを表示
 
-            BaseScreenを継承してればいけるはず(祈り)
+            DtailScreen側でself.root.destroy()でwindowを消してもらっている
 
-            ↓試したら、同じwindowに表示された
-            # BookDetailsScreenクラスをインスタンス化
-            book_details_screen = BookDetailsScreen(root)
-            # 画面を表示
-            book_dtails_screen.screen_show()
-
-            ↓試したら、window生まれたけど何も表示されなかった
-            # 2つ目のwindow作成
-            root2 = tk.Tk()
-            # BookDetailsScreenクラスをインスタンス化
-            book_details_screen = BookDetailsScreen(root2)
-            # 画面を表示
-            book_dtails_screen.screen_show()
+            itemをここから渡してしえばいいのでは....?
+            ただ、今機能側で必要最低限の情報だけ抜き取ってリストにして返してるから、それを変えないといけない？
+            (今はテスト用リストで全部入ってる)
 
             """
-            print(item)
+            book_details_screen_root = tk.Toplevel()
+            book_details_screen = BookDetailsScreen(book_details_screen_root)
+            book_details_screen.screen_show()
+
+            print(item) # debug
 
         def add_button(item): # 登録した本をjsonに保存
             """
@@ -378,7 +391,7 @@ class BookSearchScreen(BaseScreen):
                 print("JSONデコードエラー:", e)
 
             [リストの場合]
-            search_book_data = search(book_search_textbox.get())
+            search_book_data = search_func.search_books_by_title(book_search_textbox.get())
             (search関数はリストを返すmoduleの関数)
 
             """
@@ -445,29 +458,25 @@ class BookSearchScreen(BaseScreen):
         search_book_canvas.create_window((0, 0), window=search_book_frame, anchor="nw") # キャンバスにフレームを設置
 
 
-# ### 画面設定
-# root = tk.Tk() # tkinterウィンドウを作成
-# root.title('検索ページ') # 画面タイトル
-# root.geometry(SCREEN_SIZE) # 画面サイズ
-# root.option_add('*font', [FONT_TYPE, 16]) # フォント
+
 
 
 """
 
 test用
 
-この辺は遷移前の画面に記述のはず(多分おそらく)
+この辺はホーム画面に記述
 
 """
- # tkinterウィンドウを作成
-root = tk.Tk()
+# # tkinterウィンドウを作成
+# root = tk.Tk()
 
-# クラスをインスタンス化
-book_search_screen = BookSearchScreen(root)
+# # クラスをインスタンス化
+# book_search_screen = BookSearchScreen(root)
 
-# 画面を表示
-book_search_screen.screen_show()
+# # 画面を表示
+# book_search_screen.screen_show()
 
-### ウィンドウを表示
-root.mainloop()
+# ### ウィンドウを表示
+# root.mainloop()
 
