@@ -29,9 +29,9 @@ class BookDetailsScreen(BaseScreen):
             data_list[2] = "\n".join(data_list[2])
 
         # 画面タイトル
-        root.title("書籍詳細画面")
+        self.root.title("書籍詳細画面")
         # 画面サイズ
-        root.geometry(SCREEN_SIZE)
+        self.root.geometry(SCREEN_SIZE)
 
         # タイトルの作成
         label2 = tk.Label(self.frame, text="書籍詳細画面", font=(FONT_TYPE, 30, "bold"))
@@ -116,7 +116,7 @@ class BookDetailsScreen(BaseScreen):
         label9.place(x=50, y=440)
 
         # jsonから得た要約の情報を表示するTextウィジェットを作成
-        text = tk.Text(root, wrap="none", width=69, height=8)
+        text = tk.Text(self.frame, wrap="none", width=69, height=8)
         text.pack(side="left", fill="both", expand=True)
         text.place(x=50, y=480)
 
@@ -139,10 +139,10 @@ class BookDetailsScreen(BaseScreen):
 
         # 画面遷移(書籍詳細画面のウィンドウを閉じる)
         def close_window():
-            root.destroy()
+            self.root.destroy()
 
         # 画面遷移用のボタン
-        button = tk.Button(text="前の画面へ", command=close_window)
+        button = tk.Button(self.frame, text="前の画面へ", command=close_window)
         button.pack()
         button.place(x=20, y=80)
 
