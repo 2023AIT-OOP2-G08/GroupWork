@@ -6,11 +6,10 @@ import io # 元から入ってるはず
 from BaseScreen import BaseScreen # 親クラス
 """
 TODO: 画面遷移するクラスをインポート
-# from BookDetailsScreen import BookDeteilsScreen # 詳細画面
-# from BookShelfScreen import BookShelfScreen # 本棚画面
+from BookDetailsScreen import BookDetailsScreen # 詳細画面
+from BookShelfScreen import BookShelfScreen # 本棚画面
 
 """
-
 
 SCREEN_SIZE = '840x1000' # 画面サイズ
 FONT_TYPE = 'Helvetica' # フォント
@@ -322,8 +321,17 @@ class BookSearchScreen(BaseScreen):
 
             BaseScreenを継承してればいけるはず(祈り)
 
+            ↓試したら、同じwindowに表示された
             # BookDetailsScreenクラスをインスタンス化
             book_details_screen = BookDetailsScreen(root)
+            # 画面を表示
+            book_dtails_screen.screen_show()
+
+            ↓試したら、window生まれたけど何も表示されなかった
+            # 2つ目のwindow作成
+            root2 = tk.Tk()
+            # BookDetailsScreenクラスをインスタンス化
+            book_details_screen = BookDetailsScreen(root2)
             # 画面を表示
             book_dtails_screen.screen_show()
 
@@ -463,5 +471,3 @@ book_search_screen.screen_show()
 ### ウィンドウを表示
 root.mainloop()
 
-
-    
