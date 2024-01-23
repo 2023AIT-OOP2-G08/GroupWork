@@ -6,13 +6,6 @@ import io
 import textwrap
 from BaseScreen import BaseScreen
 
-"""
-TODO: 画面遷移するクラスをインポート
-# from BookDetailsScreen import BookSearchScreen # 詳細画面
-# from BookShelfScreen import BookShelfScreen # 本棚画面
-
-"""
-
 SCREEN_SIZE = "600x600"  # 画面サイズ
 FONT_TYPE = "Helvetica"  # フォント
 
@@ -122,13 +115,13 @@ class BookDetailsScreen(BaseScreen):
         label9 = tk.Label(self.frame, text="要約 : ", font=(FONT_TYPE, 17, "bold"))
         label9.place(x=50, y=440)
 
-        def on_scroll(*args):
-            text.yview(*args)
-
-        # Textウィジェットを作成
+        # jsonから得た要約の情報を表示するTextウィジェットを作成
         text = tk.Text(root, wrap="none", width=69, height=8)
         text.pack(side="left", fill="both", expand=True)
         text.place(x=50, y=480)
+
+        def on_scroll(*args):
+            text.yview(*args)
 
         """# スクロールバーを作成
         scrollbar = tk.Scrollbar(root, command=on_scroll)
@@ -137,7 +130,7 @@ class BookDetailsScreen(BaseScreen):
         # スクロールバーとTextウィジェットを関連付ける
         text.config(yscrollcommand=scrollbar.set)"""
 
-        # 40文字ごとで改行
+        # 要約を40文字ごとで改行
         description_data = textwrap.fill(data_list[5], 40)
         # print(type(data_list[5]))
         # テキストを追加
@@ -148,6 +141,7 @@ class BookDetailsScreen(BaseScreen):
         def close_window():
             root.destroy()
 
+        # 画面遷移用のボタン
         button = tk.Button(text="前の画面へ", command=close_window)
         button.pack()
         button.place(x=20, y=80)
