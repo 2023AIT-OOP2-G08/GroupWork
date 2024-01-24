@@ -2,7 +2,7 @@
 ## Initial Setting
 <pre>
 $ git clone https://github.com/2023AIT-OOP2-G08/GroupWork.git
-$ cd image-upload-with-process
+$ cd GroupWork
 $ python -m venv .env
 $ source .env/bin/activate
 (.env) $ pip install -r requirements.txt
