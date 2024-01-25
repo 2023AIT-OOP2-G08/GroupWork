@@ -67,16 +67,16 @@ def parse_book_info(item):
         'cover_image_url': cover_image_url#サムネイル画像
     }
 
-# 書籍情報を格納するリスト
-books_info1 = []
-books_info2 = []
-books_info3 = []
+# # 書籍情報を格納するリスト
+# books_info1 = []
+# books_info2 = []
+# books_info3 = []
 
 # # 各検索クエリに対して書籍情報を取得
 #
 
-book_info = search_books_by_title('リーダブルコード')
-books_info2.extend(book_info)
+# book_info = search_books_by_title('リーダブルコード')
+# books_info2.extend(book_info)
 
 # book_info = search_books_by_authors('["Dustin Boswell","Trevor Foucher"]')
 # books_info3.extend(book_info)
@@ -88,9 +88,9 @@ books_info2.extend(book_info)
 
 # print('------------------------')
 
-for book in books_info2:
-    print(book)
-    print('------------------------')
+# for book in books_info2:
+#     print(book)
+#     print('------------------------')
 
 # print('------------------------')
 
