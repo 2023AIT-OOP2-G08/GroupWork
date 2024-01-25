@@ -11,12 +11,15 @@ $ source .env/bin/activate
 ## Require
 - Python version : 3.11.5
 <pre>
-Flask==3.0.0
-opencv-python==4.8.1.78
-watchdog==3.0.0
+requests==2.31.0
+tkinter==8.6
+Pillow==10.1.0
+json==2.0.9
 </pre>
 
 ## Usage
+- main.pyを実行
+
 # 自由課題共有用
 図などの画像資料はimgフォルダに保存してください。
 ## 仕様案
