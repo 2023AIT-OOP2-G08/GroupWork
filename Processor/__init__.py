@@ -18,4 +18,4 @@ __all__ = [
 ]
 
 from .bookshelfscreen import bookshelfscreen,remove_index_elements,add_information,append_to_json,bookshelfscreen
-from .BookSaerchFunction import search_books_by_authors,search_books_by_isbn,search_books_by_title
+from .BookSearchFunction import search_books_by_authors,search_books_by_isbn,search_books_by_title
