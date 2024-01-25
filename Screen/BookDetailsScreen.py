@@ -11,19 +11,9 @@ FONT_TYPE = "Helvetica"  # フォント
 
 
 class BookDetailsScreen(BaseScreen):
-    data_list = []
-    # def get_data(
-    #     self
-    # ):
-    #     self.title = title
-    #     self.isbn_13 = isbn_13
-    #     self.authors = authors
-    #     self.published_date = published_date
-    #     self.page_count = page_count
-    #     self.description = description
-    #     self.publisher = publisher
-    #     self.cover_image_url = cover_image_url
-    print(data_list)
+    data_list = []  # 書籍情報を受け取るリスト
+
+    # print(data_list)
 
     def __init__(self, root: tk.Tk, data=None):
         """
@@ -182,7 +172,6 @@ root = tk.Tk()
 
 # クラスをインスタンス化
 book_details_screen = BookDetailsScreen(root, data=test_list)
-
 
 # 画面を表示
 book_details_screen.screen_show()
