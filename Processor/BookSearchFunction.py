@@ -3,11 +3,14 @@ import requests
 
 #書籍検索機能_ISBN
 def search_books_by_isbn(isbn):
-    url = f'https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}'
+    url = f'https://www.googleapis.com/books/v1/volumes?q=+inisbn:{isbn}&maxResults={20}'
     response = requests.get(url).json()
 
+    # 検索結果なし
     if response['totalItems'] == 0:
         return 'No books found for this isbn'
+        
+    # print(response['totalItems'])
 
     books_info = []
     for item in response['items']:
@@ -17,11 +20,14 @@ def search_books_by_isbn(isbn):
 
 #書籍検索機能_タイトル
 def search_books_by_title(title):
-    url = f'https://www.googleapis.com/books/v1/volumes?q=title:{title}'
+    url = f'https://www.googleapis.com/books/v1/volumes?q=+intitle:{title}&maxResults={20}'
     response = requests.get(url).json()
 
+    # 検索結果なし
     if response['totalItems'] == 0:
         return 'No books found for this title'
+    
+    # print(response['totalItems'])
 
     books_info = []
     for item in response['items']:
@@ -31,11 +37,14 @@ def search_books_by_title(title):
 
 #書籍検索機能_著者名
 def search_books_by_authors(authors):
-    url = f'https://www.googleapis.com/books/v1/volumes?q=authors:{authors}'
+    url = f'https://www.googleapis.com/books/v1/volumes?q=+inauthors:{authors}&maxResults={20}'
     response = requests.get(url).json()
 
+    # 検索結果なし
     if response['totalItems'] == 0:
         return 'No books found for this authors'
+    
+    # print(response['totalItems'])
 
     books_info = []
     for item in response['items']:
@@ -43,7 +52,7 @@ def search_books_by_authors(authors):
         books_info.append(book_info)
     return books_info
 
-#検索結果を返す
+#検索結果を返す　ーー出力できる検索結果は最大20件にしてみてます。
 def parse_book_info(item):
     volume_info = item.get('volumeInfo', {})
     title = volume_info.get('title', 'No title available')#タイトル
