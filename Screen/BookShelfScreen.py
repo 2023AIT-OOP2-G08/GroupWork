@@ -14,7 +14,7 @@ root = tk.Tk()
 root.title("書籍管理アプリ")
 
 # 画面サイズ
-root.geometry("600x600")
+root.geometry("800x500")
 
 #タイトルの作成
 label1 = tk.Label(root, text="書籍管理アプリ", font=("Helvetica", 15, "bold"))

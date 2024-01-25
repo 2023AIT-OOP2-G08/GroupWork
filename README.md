@@ -1,4 +1,22 @@
 # 書籍管理アプリ
+## Initial Setting
+<pre>
+$ git clone https://github.com/2023AIT-OOP2-G08/GroupWork.git
+$ cd GroupWork
+$ python -m venv .env
+$ source .env/bin/activate
+(.env) $ pip install -r requirements.txt
+</pre>
+
+## Require
+- Python version : 3.11.5
+<pre>
+Flask==3.0.0
+opencv-python==4.8.1.78
+watchdog==3.0.0
+</pre>
+
+## Usage
 # 自由課題共有用
 図などの画像資料はimgフォルダに保存してください。
 ## 仕様案
