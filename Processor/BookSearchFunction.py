@@ -84,7 +84,7 @@ books_info3 = []
 # # 各検索クエリに対して書籍情報を取得
 #
 
-book_info = search_books_by_title('python 入門')
+book_info = search_books_by_title('ハッカー　画家')
 books_info2.extend(book_info)
 
 # book_info = search_books_by_authors('["Dustin Boswell","Trevor Foucher"]')
