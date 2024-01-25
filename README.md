@@ -1,4 +1,8 @@
 # 書籍管理アプリ
+## Check List
+- [CheckList.xlsx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14048695/CheckList.xlsx)
+
+
 ## Initial Setting
 <pre>
 $ git clone https://github.com/2023AIT-OOP2-G08/GroupWork.git
