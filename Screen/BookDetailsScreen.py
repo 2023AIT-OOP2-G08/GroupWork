@@ -139,8 +139,11 @@ class BookDetailsScreen(BaseScreen):
 # tkinterウィンドウを作成
 root = tk.Tk()
 
+
 # 書籍の情報を取得するlist
-data_list = []
+def get_data(data):
+    data_list = data
+
 
 """data_list = [
     "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計",
