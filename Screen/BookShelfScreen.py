@@ -413,8 +413,7 @@ class BookShelfScreen(BaseScreen):
                 # ダウンロードした画像データをPIL.Imageオブジェクトに変換
                 im = Image.open(io.BytesIO(raw_data))
 
-                #print("Cover Image URL:", item['cover_image_url'])
-
+                
                 # 画像のサイズを半分にする
                 im = im.resize((im.width // 2, im.height // 2))
                 
