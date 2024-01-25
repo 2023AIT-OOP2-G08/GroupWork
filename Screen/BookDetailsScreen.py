@@ -105,12 +105,12 @@ class BookDetailsScreen(BaseScreen):
         label9.place(x=50, y=440)
 
         # jsonから得た要約の情報を表示するTextウィジェットを作成
-        text = tk.Text(self.frame, wrap="none", width=69, height=8)
-        text.pack(side="left", fill="both", expand=True)
-        text.place(x=50, y=480)
+        description_text = tk.Text(self.frame, wrap="none", width=69, height=8)
+        description_text.pack(side="left", fill="both", expand=True)
+        description_text.place(x=50, y=480)
 
         def on_scroll(*args):
-            text.yview(*args)
+            description_text.yview(*args)
 
         """# スクロールバーを作成
         scrollbar = tk.Scrollbar(root, command=on_scroll)
@@ -124,16 +124,16 @@ class BookDetailsScreen(BaseScreen):
         # print(type(data_list[5]))
         # テキストを追加
         for ch in description_data:
-            text.insert("end", ch)
+            description_text.insert("end", ch)
 
         # 画面遷移(書籍詳細画面のウィンドウを閉じる)
         def close_window():
             self.root.destroy()
 
         # 画面遷移用のボタン
-        button = tk.Button(self.frame, text="前の画面へ", command=close_window)
-        button.pack()
-        button.place(x=20, y=80)
+        close_button = tk.Button(self.frame, text="前の画面へ", command=close_window)
+        close_button.pack()
+        close_button.place(x=20, y=80)
 
 
 # tkinterウィンドウを作成
