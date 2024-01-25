@@ -11,11 +11,39 @@ FONT_TYPE = "Helvetica"  # フォント
 
 
 class BookDetailsScreen(BaseScreen):
+    data_list = []
+    # def get_data(
+    #     self
+    # ):
+    #     self.title = title
+    #     self.isbn_13 = isbn_13
+    #     self.authors = authors
+    #     self.published_date = published_date
+    #     self.page_count = page_count
+    #     self.description = description
+    #     self.publisher = publisher
+    #     self.cover_image_url = cover_image_url
+    print(data_list)
+
+    def __init__(self, root: tk.Tk, data=None):
+        """
+        ウィンドウの基底クラスを初期化します。
+
+        Parameters:
+        - root: Tkinterウィンドウの親オブジェクト
+        """
+        self.data_list = data
+        self.root = root
+        self.frame = tk.Frame(root)
+        self.create_widgets()
+
     def create_widgets(self):
+        print(self.data_list)
+
         # 著者名が表記されていて配列でリストに格納されている場合
         # 要素の間に改行を加えて一つの文に変換する
-        if data_list[2] != "No publisher information available":
-            data_list[2] = "\n".join(data_list[2])
+        if self.data_list["authors"] != "No publisher information available":
+            self.data_list["authors"] = "\n".join(self.data_list["authors"])
 
         # 画面タイトル
         self.root.title("書籍詳細画面")
@@ -27,7 +55,7 @@ class BookDetailsScreen(BaseScreen):
         label2.place(x=207, y=20)
 
         # 表紙の画像表示
-        url = data_list[7]
+        url = self.data_list["cover_image_url"]
 
         # URLから画像データをダウンロード
         with urllib.request.urlopen(url) as u:
@@ -50,7 +78,7 @@ class BookDetailsScreen(BaseScreen):
 
         label_title = tk.Label(
             self.frame,
-            text=("\n".join(data_list[0].split())),
+            text=("\n".join(self.data_list["title"].split())),
             font=(FONT_TYPE, 12, "bold"),
         )
         label_title.place(x=180, y=180)
@@ -60,7 +88,7 @@ class BookDetailsScreen(BaseScreen):
         label4.place(x=400, y=140)
 
         label_authors = tk.Label(
-            self.frame, text=(data_list[2]), font=(FONT_TYPE, 12, "bold")
+            self.frame, text=self.data_list["authors"], font=(FONT_TYPE, 12, "bold")
         )
         label_authors.place(x=400, y=180)
 
@@ -69,7 +97,7 @@ class BookDetailsScreen(BaseScreen):
         label5.place(x=180, y=240)
 
         label_isbn_13 = tk.Label(
-            self.frame, text=data_list[1], font=(FONT_TYPE, 12, "bold")
+            self.frame, text=self.data_list["isbn_13"], font=(FONT_TYPE, 12, "bold")
         )
         label_isbn_13.place(x=180, y=280)
 
@@ -78,7 +106,7 @@ class BookDetailsScreen(BaseScreen):
         label6.place(x=400, y=240)
 
         label_publisher = tk.Label(
-            self.frame, text=data_list[6], font=(FONT_TYPE, 12, "bold")
+            self.frame, text=self.data_list["publisher"], font=(FONT_TYPE, 12, "bold")
         )
         label_publisher.place(x=400, y=280)
 
@@ -87,7 +115,7 @@ class BookDetailsScreen(BaseScreen):
         label7.place(x=180, y=340)
 
         label_page_count = tk.Label(
-            self.frame, text=data_list[4], font=(FONT_TYPE, 12, "bold")
+            self.frame, text=self.data_list["page_count"], font=(FONT_TYPE, 12, "bold")
         )
         label_page_count.place(x=180, y=380)
 
@@ -96,7 +124,9 @@ class BookDetailsScreen(BaseScreen):
         label8.place(x=400, y=340)
 
         label_published_date = tk.Label(
-            self.frame, text=data_list[3], font=(FONT_TYPE, 12, "bold")
+            self.frame,
+            text=self.data_list["published_date"],
+            font=(FONT_TYPE, 12, "bold"),
         )
         label_published_date.place(x=400, y=380)
 
@@ -120,7 +150,7 @@ class BookDetailsScreen(BaseScreen):
         text.config(yscrollcommand=scrollbar.set)"""
 
         # 要約を40文字ごとで改行
-        description_data = textwrap.fill(data_list[5], 40)
+        description_data = textwrap.fill(self.data_list["description"], 40)
         # print(type(data_list[5]))
         # テキストを追加
         for ch in description_data:
@@ -136,28 +166,23 @@ class BookDetailsScreen(BaseScreen):
         close_button.place(x=20, y=80)
 
 
+test_list = {
+    "title": "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計",
+    "isbn_13": "9784798155456",
+    "authors": ["原田秀司"],
+    "published_date": "2019-01-21",
+    "page_count": 210,
+    "description": "使いやすい理由とは何か 本書はUIにおけるデザインの定義から、 ハードおよびソフトによる制約、人間の心理による影響、 そして具体的にデザインを形にする方法までを、 図や画像を使いながら、わかりやすく体系的に解説していきます。 Webサイトの閲覧者やアプリのユーザーは、 いつのまにか迷ったり、わからなくなったり、 操作がしっくりこなかったりすることがあります。 本書を読むと「わかりやすさ」と「使いやすさ」の要点がわかるので、 ユーザーを迷わせない、最適なUIを見つけることができます。 デザイナーはもちろん、エンジニア、ディレクター、発注者など、 UI制作に関わる、あらゆる方におすすめの1冊です。 ＊本書は2013年刊行の『UIデザインの教科書』をもとにしていますが、 最新環境にあわせて、構成及び内容を全面的に書き直しています。 〈こんな人のための本です〉 ・UIデザインの基本的な考え方を学びたい ・わかりやすさや使いやすさの理由が知りたい ・最新のデバイスごとの違いやルールを知りたい ・UIデザインのチェック項目が知りたい ・UIデザインを説明するためのロジックが学びたい ...etc 〈目次〉 第1章 デザインの目的とUI/UX 第2章 物理的な制約 第3章 ソフトウェアの影響 第4章 人間の認知特性 第5章 階層と構造 第6章 ナビゲーションとインタラクション 第7章 デザインを形にする",
+    "publisher": "翔泳社",
+    "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+}
+
 # tkinterウィンドウを作成
 root = tk.Tk()
 
-
-# 書籍の情報を取得するlist
-def get_data(data):
-    data_list = data
-
-
-"""data_list = [
-    "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計",
-    "9784798155456",
-    ["原田秀司"],
-    "2019-01-21",
-    210,
-    "使いやすい理由とは何か 本書はUIにおけるデザインの定義から、 ハードおよびソフトによる制約、人間の心理による影響、 そして具体的にデザインを形にする方法までを、 図や画像を使いながら、わかりやすく体系的に解説していきます。 Webサイトの閲覧者やアプリのユーザーは、 いつのまにか迷ったり、わからなくなったり、 操作がしっくりこなかったりすることがあります。 本書を読むと「わかりやすさ」と「使いやすさ」の要点がわかるので、 ユーザーを迷わせない、最適なUIを見つけることができます。 デザイナーはもちろん、エンジニア、ディレクター、発注者など、 UI制作に関わる、あらゆる方におすすめの1冊です。 ＊本書は2013年刊行の『UIデザインの教科書』をもとにしていますが、 最新環境にあわせて、構成及び内容を全面的に書き直しています。 〈こんな人のための本です〉 ・UIデザインの基本的な考え方を学びたい ・わかりやすさや使いやすさの理由が知りたい ・最新のデバイスごとの違いやルールを知りたい ・UIデザインのチェック項目が知りたい ・UIデザインを説明するためのロジックが学びたい ...etc 〈目次〉 第1章 デザインの目的とUI/UX 第2章 物理的な制約 第3章 ソフトウェアの影響 第4章 人間の認知特性 第5章 階層と構造 第6章 ナビゲーションとインタラクション 第7章 デザインを形にする",
-    "翔泳社",
-    "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-]"""
-
 # クラスをインスタンス化
-book_details_screen = BookDetailsScreen(root)
+book_details_screen = BookDetailsScreen(root, data=test_list)
+
 
 # 画面を表示
 book_details_screen.screen_show()
