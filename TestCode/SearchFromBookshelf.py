@@ -2,7 +2,7 @@ import json
 import os
 
 
-JSON_PATH = os.path.join('BookshelfTest.json') # jsonの相対パス
+JSON_PATH = os.path.join('Bookshelf.json') # jsonの相対パス
 
 def is_list_in_json_file(list):
     """
