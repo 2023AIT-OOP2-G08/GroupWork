@@ -152,20 +152,18 @@ class BookSearchScreen(BaseScreen):
         def on_add_button_click(item): # 登録した本をjsonに保存
             """
 
-            TODO: 登録した本をjsonに保存
+            TODO: moduleがまだうまくいっていない
 
-            moduleを利用
+            登録した本をjsonに保存
+            (moduleを利用)
 
             """
             # print(item) # debug
 
-            # if Processor.is_list_in_json_file(JSON_PATH, item) : # 既に登録されていたら
-            #     messagebox.showinfo('エラー', 'すでに登録されています。')
-            # else : #
-            #     Processor.append_to_json(JSON_PATH, item)
-
-            Processor.append_to_json(JSON_PATH, item)
-
+            if Processor.is_list_in_json_file(item) : # 既に登録されていたら
+                messagebox.showinfo('エラー', 'すでに登録されています。')
+            else : # 登録されていなければ追加
+                Processor.append_to_json(item)
 
         def on_book_search_button_click(): # 検索実行&結果表示
             """
@@ -265,11 +263,13 @@ test用
 この辺は遷移前の画面などに記述
 
 """
-# root = tk.Tk() # tkinterウィンドウを作成
+if __name__ == '__main__':
 
-# book_search_screen = BookSearchScreen(root) # クラスをインスタンス化
+    root = tk.Tk() # tkinterウィンドウを作成
 
-# book_search_screen.screen_show() # 画面を設定
+    book_search_screen = BookSearchScreen(root) # クラスをインスタンス化
 
-# root.mainloop() # イベントループ
+    book_search_screen.screen_show() # 画面を設定
+
+    root.mainloop() # イベントループ
 

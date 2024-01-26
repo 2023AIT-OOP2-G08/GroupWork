@@ -113,15 +113,12 @@ class HomeScreen(BaseScreen):
 
 test用
 
-main.pyから実行する時や、プルリクする時など、コメントアウトしてください。
-完成したら消してください。
-
 """
+if __name__ == '__main__':
+    root = tk.Tk() # window作成
 
-# root = tk.Tk() # window作成
+    screen = HomeScreen(root) # インスタンス化
 
-# screen = HomeScreen(root) # インスタンス化
+    screen.screen_show() # screenを設定
 
-# screen.screen_show() # screenを設定
-
-# root.mainloop() # イベントループ
+    root.mainloop() # イベントループ
