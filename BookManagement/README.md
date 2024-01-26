@@ -105,7 +105,6 @@ PC用GUIアプリ
 - 書籍検索画面 
 - 本棚画面
 - 書籍詳細画面
-- 画面サイズは検索画面の「840x1000」フォントは「Helvetica」に統一
 
 ## 画面遷移図
 ![](img/ScreenTransitionDiagram.drawio.png)
