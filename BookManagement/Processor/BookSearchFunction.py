@@ -8,7 +8,7 @@ def search_books_by_isbn(isbn):
 
     # 検索結果なし
     if response['totalItems'] == 0:
-        return 'No books found for this isbn'
+        return 'No books found'
         
     # print(response['totalItems'])
 
@@ -25,7 +25,7 @@ def search_books_by_title(title):
 
     # 検索結果なし
     if response['totalItems'] == 0:
-        return 'No books found for this title'
+        return 'No books found'
     
     # print(response['totalItems'])
 
@@ -42,7 +42,7 @@ def search_books_by_authors(authors):
 
     # 検索結果なし
     if response['totalItems'] == 0:
-        return 'No books found for this authors'
+        return 'No books found'
     
     # print(response['totalItems'])
 
