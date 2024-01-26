@@ -144,7 +144,7 @@ class BookDetailsScreen(BaseScreen):
         # スクロールバーとTextウィジェットを関連付ける
         text.config(yscrollcommand=scrollbar.set)"""
 
-        # 要約を40文字ごとで改行
+        # 要約を32文字ごとで改行
         description_data = textwrap.fill(data_list["description"], 32)
         # print(type(data_list[5]))
         # テキストを追加
