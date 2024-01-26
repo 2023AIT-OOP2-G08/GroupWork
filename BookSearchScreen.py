@@ -3,7 +3,6 @@ import tkinter.ttk as ttk
 import urllib.request # 元から入ってるはず
 import io # 元から入ってるはず
 import os # 元から入ってるはず
-import json # 元から入ってるはず
 
 from tkinter import messagebox # アラート用のやつ
 from PIL import Image, ImageTk # pip3 install Pillowでインストール
@@ -69,9 +68,9 @@ class BookSearchScreen(BaseScreen):
 
             self.screen_hide() # Search画面を非表示
 
-            from BookShelfScreen import BookShelfScreen # 本棚画面
+            from BookshelfScreen import BookshelfScreen # 本棚画面
             
-            shelf_screen = BookShelfScreen(self.root) # 本棚画面インスタンス化
+            shelf_screen = BookshelfScreen(self.root) # 本棚画面インスタンス化
             shelf_screen.screen_show() # 本棚画面を表示
 
             """

@@ -1,14 +1,15 @@
 import tkinter as tk
-import Processor
-from Screen import HomeScreen
-import json
+from HomeScreen import HomeScreen # ホーム画面
 
 def main () :
-    root =  tk.Tk()
-    processor = Processor()  
-    starting_screen = HomeScreen(root, processor)
-    #starting_screen = HomeScreen(root)
-    root.mainloop()
+
+    root =  tk.Tk() # 最初のroot window作成
+
+    starting_screen = HomeScreen(root) # HomeScreenをインスタンス化
+
+    starting_screen.screen_show() # HomeScreenの画面を設定
+
+    root.mainloop() # イベントループ
 
 
 if __name__ == '__main__':
