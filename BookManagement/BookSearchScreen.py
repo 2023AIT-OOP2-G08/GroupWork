@@ -192,57 +192,74 @@ class BookSearchScreen(BaseScreen):
             else :
                 messagebox.showinfo('エラー', '検索方法が選択されていません')
 
-            # print(f"「{book_search_textbox.get()}」を「{search_combobox.get()}」で検索") # debug
-            # search_book_data = test_data　# debug
+             # print(f"「{book_search_textbox.get()}」を「{search_combobox.get()}」で検索") # debug
+
+
+            if search_book_data != 'No books found': # 本が見つかった場合
+                print(search_book_data)
+                """
+
+                表の作成
+
+                gridで作成
+
+                """
+                headers = ['表紙', 'タイトル', 'ISBN-13', 'Action'] # 列名
+                for j, header in enumerate(headers): # header配置
+                    header_label = tk.Label(search_result_table_frame, text=header, relief=BORDER)
+                    header_label.grid(row=0, column=j, sticky='ew')
                 
+                for i, item in enumerate(search_book_data, start=1): # 表の要素配置(row=3から)
 
-            ### 表の作成(grid)
-            headers = ['表紙', 'タイトル', 'ISBN-13', 'Action'] # 列名
-            for j, header in enumerate(headers): # header配置
-                header_label = tk.Label(search_result_table_frame, text=header, relief=BORDER)
-                header_label.grid(row=0, column=j, sticky='ew')
-            
-            for i, item in enumerate(search_book_data, start=1): # 表の要素配置(row=3から)
+                    # 画像のダウンロード
+                    if item['cover_image_url'] != 'No cover image available': # 画像がある場合
+                        with urllib.request.urlopen(item['cover_image_url']) as u:
+                            raw_data = u.read() # urlから画像をダウンロード
+                        im = Image.open(io.BytesIO(raw_data)) # ダウンロードした画像データをPIL.Imageオブジェクトに変換
+                        im = im.resize((im.width // 2, im.height // 2)) # 画像サイズ変更
+                    
+                    else: # 画像がない場合
+                        im = Image.open(NO_IMAGE_PATH) # no_imgをダウンロード
+                        im = im
+                    
+                    photo = ImageTk.PhotoImage(im) # ImageTk.PhotoImageオブジェクトに変換
+                    BookSearchScreen.photos.append(photo)  # 画像をリストに追加
 
-                # 画像のダウンロード
-                if item['cover_image_url'] != 'No cover image available': # 画像がある場合
-                    with urllib.request.urlopen(item['cover_image_url']) as u:
-                        raw_data = u.read() # urlから画像をダウンロード
-                    im = Image.open(io.BytesIO(raw_data)) # ダウンロードした画像データをPIL.Imageオブジェクトに変換
-                    im = im.resize((im.width // 2, im.height // 2)) # 画像サイズ変更
+                    # ボタンに画像を設定
+                    book_border_label = tk.Label(search_result_table_frame, relief=BORDER) # 枠線
+                    book_button = tk.Button(search_result_table_frame, image=photo, command=lambda item=item: on_detail_button_click(item))
+                    book_border_label.grid(row=i, column=0, sticky=tk.NSEW) # 枠線
+                    book_button.grid(row=i, column=0)
+                    
+                    # タイトル & ISBN-13
+                    table_title_label = tk.Label(search_result_table_frame, text=item['title'], relief=BORDER, wraplength=450, width=57)
+                    table_title_label.grid(row=i, column=1, sticky=tk.NSEW)
+
+                    isbn_label = tk.Label(search_result_table_frame, text=item['isbn_13'], relief=BORDER, wraplength=100, width=15)
+                    isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
+
+                    # 登録ボタン
+                    button_border_label = tk.Label(search_result_table_frame, relief=BORDER, width=10) # 枠線
+                    register_button = tk.Button(search_result_table_frame, text="登録", command=lambda item=item: on_add_button_click(item))
+                    button_border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
+                    register_button.grid(row=i, column=3)
                 
-                else: # 画像がない場合
-                    im = Image.open(NO_IMAGE_PATH) # no_imgをダウンロード
-                    im = im
-                
-                photo = ImageTk.PhotoImage(im) # ImageTk.PhotoImageオブジェクトに変換
-                BookSearchScreen.photos.append(photo)  # 画像をリストに追加
+                ### スクロールバー
+                search_result_table_frame.update() # フレームの最新情報更新
+                frame_height = search_result_table_frame.winfo_reqheight() # フレームの高さを取得
+                # print(frame_height) # debug
+                search_result_table_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
+                search_result_table_canvas.configure(yscrollcommand=scrollbar.set) # スクロールの設定
 
-                border_label = tk.Label(search_result_table_frame, relief=BORDER) # 枠線
+            else : # 本が見つからなかった場合
+                """
 
-                # ボタンに画像を設定
-                book_button = tk.Button(search_result_table_frame, image=photo, command=lambda item=item: on_detail_button_click(item))
-                border_label.grid(row=i, column=0, sticky=tk.NSEW) # 枠線
-                book_button.grid(row=i, column=0)
-                
-                # タイトル & ISBN-13
-                table_title_label = tk.Label(search_result_table_frame, text=item['title'], wraplength=565, relief=BORDER)
-                table_title_label.grid(row=i, column=1, sticky=tk.NSEW)
+                No books foundを出す。
 
-                isbn_label = tk.Label(search_result_table_frame, text=item['isbn_13'], relief=BORDER)
-                isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
+                """
+                no_book_label = tk.Label(search_result_table_frame, text=search_book_data, font=("Helvetica", 100, "bold"))
+                no_book_label.pack(pady=20)
 
-                # 登録ボタン
-                register_button = tk.Button(search_result_table_frame, text="登録", command=lambda item=item: on_add_button_click(item))
-                border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
-                register_button.grid(row=i, column=3)
-            
-            ### スクロールバー
-            search_result_table_frame.update() # フレームの最新情報更新
-            frame_height = search_result_table_frame.winfo_reqheight() # フレームの高さを取得
-            # print(frame_height) # debug
-            search_result_table_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
-            search_result_table_canvas.configure(yscrollcommand=scrollbar.set) # スクロールの設定
 
         ### 配置
         book_search_button = tk.Button(search_frame, text="検索", command=on_book_search_button_click) # 検索実行ボタン
