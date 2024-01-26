@@ -1,5 +1,7 @@
 import json
+import os
 
+JSON_PATH = os.path.join('Bookshelf.json') # jsonの相対パス
 
 def get_bookshelf(json_file_path):
     with open(json_file_path, 'r', encoding='utf-8') as file:  #jsonファイルを開ける
@@ -33,7 +35,7 @@ def add_information(input_list, new_list):
     input_list.append(new_list)
     return input_list
 
-def append_to_json(path, new_data):
+def append_to_json(new_data):
     """
     JSONファイルに新しいデータを追加する関数
     処理の流れ
@@ -44,47 +46,46 @@ def append_to_json(path, new_data):
     5. truncateメソッドを使用して、ファイルの内容をクリアする。
     6. json.dump関数を使用して、Pythonのデータ構造をJSON形式の文字列に変換し、ファイルに書き込む。
     Parameters:
-        path (str): JSONファイルのパス。
         new_data (dict): 追加するデータ。JSONファイルの各要素に対応するキーと値を持つ辞書。
     Returns:
         None
     """
-    # 'r+'モードでファイルを開く。これにより、ファイルの読み書きが可能になる。
-    with open(path, 'r+', encoding='utf-8') as file:
-        # json.load関数を使用して、JSONファイルの内容をPythonのデータ構造（ここではリスト）に変換する。
-        #注意：読み込み先のファイルの内容が空の場合、json.load関数は例外を発生させる。→最低でも[](空のリスト)を入れておく
-        data = json.load(file)
-        # appendメソッドを使用して、新しいデータを既存のリストに追加する。
-        data.append(new_data)
-        # seekメソッドを使用して、ファイルポインタをファイルの先頭に戻す。
-        file.seek(0)
-        # truncateメソッドを使用して、ファイルの内容をクリアする。
-        file.truncate()
-        # json.dump関数を使用して、Pythonのデータ構造をJSON形式の文字列に変換し、ファイルに書き込む。
-        json.dump(data, file, ensure_ascii=False, indent=4)
+    try:
+        with open(JSON_PATH, 'r+', encoding='utf-8') as file:
+            data = json.load(file)
+            data.append(new_data)
+            file.seek(0)
+            file.truncate()
+            json.dump(data, file, ensure_ascii=False, indent=4)
+    except IOError as e:
+        print(f"IOError: {e}")
+        raise
+    except json.JSONDecodeError as e:
+        print(f"JSONDecodeError: {e}")
+        raise
 
-"""
-def append_to_json(json_file_path, info_list):
-    with open(json_file_path, 'r', encoding='utf-8') as file:
-        data = json.load(file)
+def is_list_in_json_file(list):
+    """
+    指定されたリストの'title'または'isbn_13'がJSONファイルに含まれているかを確認します。
 
-        #リスト形式で追加
-    new_data = {
-        'title': info_list['title'],
-        'isbn_13': info_list['isbn_13'],
-        'authors': info_list['authors'],
-        'published_date': info_list['published_date'],
-        'page_count': info_list['page_count'],
-        'description': info_list['description'],
-        'publisher': info_list['publisher'],
-        'cover_image_url': info_list['cover_image_url']
-    }
+    Parameters:
+    list (list): 確認するリスト。各要素は'title'と'isbn_13'をキーとする辞書
 
-    data.update(new_data)
-
-    with open(json_file_path, 'w', encoding='utf-8') as file:
-        json.dump(data, file, ensure_ascii=False, indent=4)
-"""
+    Returns:
+    bool: リストの全ての要素の'title'または'isbn_13'がJSONファイルに含まれている場合はTrue、そうでない場合はFalse。
+    """
+    # try:
+    # JSONファイルを読み込む、すでに作成されているBookshelfFunction.pyのget_bookshelf(json_file_path)でもいい
+    with open(JSON_PATH, 'r', encoding='utf-8') as file:
+        bookshelf_data = json.load(file)
+        
+        for book in bookshelf_data:
+            if book.get("title") in list['title']:
+                return True
+            #titleがない場合はisbn_13で確認する
+            elif book.get("isbn_13") in list['isbn_13']:
+                return True
+        return False
 
 #-------------------------------------------------------------------------------#
 # 例として、json_file_pathとinfo_listを適当に設定
@@ -106,4 +107,5 @@ if __name__ == '__main__':
         'publisher': '翔泳社', 
         'cover_image_url': 'http://books.google.com/books/content?id=ABdfEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
         }
-    append_to_json('../Bookshelf.json', test_list)
+    append_to_json(test_list)
+    print(is_list_in_json_file(test_list))
