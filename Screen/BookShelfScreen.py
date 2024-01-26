@@ -22,7 +22,7 @@ SCREEN_SIZE = '840x1000' # 画面サイズ
 FONT_TYPE = 'Helvetica' # フォント
 BORDER = tk.GROOVE # 枠線
 
-class BookshelfScreen(BaseScreen):
+class BookShelfScreen(BaseScreen):
 
     def create_widgets(self):
         # テストデータ
