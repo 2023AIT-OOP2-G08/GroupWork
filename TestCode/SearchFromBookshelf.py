@@ -2,7 +2,7 @@ import json
 import os
 
 
-JSON_PATH = os.path.join('Bookshelf.json') # jsonの相対パス
+JSON_PATH = os.path.join('BookshelfTest.json') # jsonの相対パス
 
 def is_list_in_json_file(list):
     """
@@ -25,8 +25,7 @@ def is_list_in_json_file(list):
             #titleがない場合はisbn_13で確認する
             elif book.get("isbn_13") in list['isbn_13']:
                 return True
-            else:
-                return False
+        return False
     
 # テスト用
 if __name__ == '__main__':
