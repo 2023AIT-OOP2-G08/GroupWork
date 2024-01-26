@@ -19,6 +19,8 @@ NO_IMAGE_PATH = os.path.join('Images', 'no_img.png') # no_imgの相対パス
 
 class BookSearchScreen(BaseScreen):
 
+    photos = [] # 検索画像保存用
+
     def create_widgets(self):
         """
 
@@ -27,7 +29,6 @@ class BookSearchScreen(BaseScreen):
 
         """
         ### 画面設定
-        self.root.title('検索ページ') # 画面タイトル
         self.root.geometry(SCREEN_SIZE) # 画面サイズ
         self.root.option_add('*font', [FONT_TYPE, 16]) # フォント
 
@@ -102,8 +103,6 @@ class BookSearchScreen(BaseScreen):
         table_frame = tk.Frame(table_canvas,bg='red', width=840, height=0) # 検索結果フレーム(初期設定)
         scrollbar = tk.Scrollbar(table_canvas, orient=tk.VERTICAL, command=table_canvas.yview) # スクロールバー
 
-        photos = [] # 検索画像保存用
-
         """
 
         TODO: トラックパッドでスクロール
@@ -135,16 +134,15 @@ class BookSearchScreen(BaseScreen):
             ループしないように関数内にimport
             DtailScreen側でself.root.destroy()でwindowを消してもらっている
 
-            itemをここから渡したい。
+            itemをここから渡す。
 
             """
             from BookDetailsScreen import BookDetailsScreen # 詳細画面
 
-            print(item) # debug
+            # print(item) # debug
 
             book_details_screen_root = tk.Toplevel() # window作成
-            book_details_screen = BookDetailsScreen(book_details_screen_root) # screenをwindowに設定
-            # book_details_screen.get_data(item)
+            book_details_screen = BookDetailsScreen(book_details_screen_root, item) # screenをwindowに設定
             book_details_screen.screen_show() # screenを表示
 
         def add_button(item): # 登録した本をjsonに保存
@@ -157,16 +155,28 @@ class BookSearchScreen(BaseScreen):
             """
             print(item) # debug
             # 登録した本をjsonに追加
+            # if Processor.is_list_in_json_file(JSON_PATH, item) :
+            #     messagebox.showinfo('エラー', 'すでに登録されています。')
+            # else :
+            #     Processor.append_to_json(JSON_PATH, item)
+
             Processor.append_to_json(JSON_PATH, item)
 
 
         def search_button(): # 検索実行&結果表示
             """
             
+            tableまず、初期化する
             moduleを利用し、検索結果を受け取る
             その後、表として配置する
 
             """
+
+            ### 初期化
+            for widget in table_frame.winfo_children(): # table_frame内のすべての子ウィジェットを破棄
+                widget.destroy()
+            BookSearchScreen.photos = []
+
 
             if search_combobox.get() == 'タイトル' : # タイトル検索
                 search_book_data = Processor.search_books_by_title(book_search_textbox.get())
@@ -181,7 +191,7 @@ class BookSearchScreen(BaseScreen):
             # test用
             print(f"「{book_search_textbox.get()}」を「{search_combobox.get()}」で検索") # debug
             # search_book_data = test_data　# debug
-
+            
 
             ### 表を作成(grid)
             headers = ['表紙', 'タイトル', 'ISBN-13', 'Action'] # 列名
@@ -199,9 +209,10 @@ class BookSearchScreen(BaseScreen):
                 
                 else: # 画像がない場合
                     im = Image.open(NO_IMAGE_PATH) # no_imgをダウンロード
+                    im = im
                 
                 photo = ImageTk.PhotoImage(im) # ImageTk.PhotoImageオブジェクトに変換
-                photos.append(photo)  # 画像をリストに追加
+                BookSearchScreen.photos.append(photo)  # 画像をリストに追加
 
                 border_label = tk.Label(table_frame, relief=BORDER) # 枠線
 
@@ -438,17 +449,17 @@ test用
 #     }
 # ]
 
-# tkinterウィンドウを作成
-root = tk.Tk()
+# # tkinterウィンドウを作成
+# root = tk.Tk()
 
-# クラスをインスタンス化
-book_search_screen = BookSearchScreen(root)
+# # クラスをインスタンス化
+# book_search_screen = BookSearchScreen(root)
 
-# book_search_screen.get_data(test_data)
+# # book_search_screen.get_data(test_data)
 
-# 画面を表示
-book_search_screen.screen_show()
+# # 画面を表示
+# book_search_screen.screen_show()
 
-### ウィンドウを表示
-root.mainloop()
+# ### ウィンドウを表示
+# root.mainloop()
 
