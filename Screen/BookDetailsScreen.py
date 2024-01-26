@@ -145,7 +145,7 @@ class BookDetailsScreen(BaseScreen):
         text.config(yscrollcommand=scrollbar.set)"""
 
         # 要約を40文字ごとで改行
-        description_data = textwrap.fill(data_list["description"], 40)
+        description_data = textwrap.fill(data_list["description"], 32)
         # print(type(data_list[5]))
         # テキストを追加
         for ch in description_data:
@@ -172,14 +172,14 @@ class BookDetailsScreen(BaseScreen):
 #     "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
 # }
 
-# tkinterウィンドウを作成
-root = tk.Tk()
+# # tkinterウィンドウを作成
+# root = tk.Tk()
 
-# クラスをインスタンス化
-book_details_screen = BookDetailsScreen(root, data=outside_data)
+# # クラスをインスタンス化
+# book_details_screen = BookDetailsScreen(root, data=test_list)
 
-# 画面を表示
-book_details_screen.screen_show()
+# # 画面を表示
+# book_details_screen.screen_show()
 
-### ウィンドウを表示
-root.mainloop()
+# ### ウィンドウを表示
+# root.mainloop()
