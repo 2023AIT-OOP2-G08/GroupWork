@@ -1,0 +1,4 @@
+requests==2.31.0
+tkinter==8.6
+Pillow==10.1.0
+json==2.0.9
