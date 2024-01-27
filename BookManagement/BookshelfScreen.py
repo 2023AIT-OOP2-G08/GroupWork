@@ -3,6 +3,10 @@ from PIL import Image, ImageTk # pip3 install Pillowでインストール
 import urllib.request # 元から入ってるはず
 import io # 元から入ってるはず
 
+
+import Processor.BookshelfFunction as BookshelfFunction
+
+
 from BaseScreen import BaseScreen # 親クラス
 """
 TODO: 画面遷移するクラスをインポート
@@ -363,6 +367,13 @@ class BookShelfScreen(BaseScreen):
                 border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
                 register_button.grid(row=i, column=3)
                 #header.find('<ButtonRelease-1>', lambda event: delete_item())
+
+                def delete_item(item, index):
+                    # 指定されたインデックスの本を削除
+                    BookshelfFunction.remove_index_elements(search_book_data, index - 3)  # -3 は enumerate で start=3 を指定しているため
+
+                    # 削除後に再描画などの更新が必要な場合はここで行う
+                    search_button()  # 画面の更新を行う関数を呼び出す
 
     
             ### スクロールバー
