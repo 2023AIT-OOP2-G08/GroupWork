@@ -324,8 +324,7 @@ class BookShelfScreen(BaseScreen):
             
             search_book_data = test_data
 
-            
-
+        
             ### 表を作成(grid)
             headers = ['Image', 'Title', 'ISBN-13', 'Action'] # 列名
             for j, header in enumerate(headers): # header配置
