@@ -1,8 +1,6 @@
 import json
 import os
 
-JSON_PATH = os.path.join('Bookshelf.json') # jsonの相対パス
-
 def get_bookshelf(json_file_path):
     with open(json_file_path, 'r', encoding='utf-8') as file:  #jsonファイルを開ける
 
@@ -35,7 +33,7 @@ def add_information(input_list, new_list):
     input_list.append(new_list)
     return input_list
 
-def append_to_json(new_data):
+def append_to_json(json_file_path, new_data):
     """
     JSONファイルに新しいデータを追加する関数
     処理の流れ
@@ -51,7 +49,7 @@ def append_to_json(new_data):
         None
     """
     try:
-        with open(JSON_PATH, 'r+', encoding='utf-8') as file:
+        with open(json_file_path, 'r+', encoding='utf-8') as file:
             data = json.load(file)
             data.append(new_data)
             file.seek(0)
@@ -64,7 +62,7 @@ def append_to_json(new_data):
         print(f"JSONDecodeError: {e}")
         raise
 
-def is_list_in_json_file(list):
+def is_list_in_json_file(json_file_path, list):
     """
     指定されたリストの'title'または'isbn_13'がJSONファイルに含まれているかを確認します。
 
@@ -76,7 +74,7 @@ def is_list_in_json_file(list):
     """
     # try:
     # JSONファイルを読み込む、すでに作成されているBookshelfFunction.pyのget_bookshelf(json_file_path)でもいい
-    with open(JSON_PATH, 'r', encoding='utf-8') as file:
+    with open(json_file_path, 'r', encoding='utf-8') as file:
         bookshelf_data = json.load(file)
         
         for book in bookshelf_data:
