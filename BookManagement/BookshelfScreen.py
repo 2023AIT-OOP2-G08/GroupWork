@@ -2,10 +2,12 @@ import tkinter as tk # pyenvのpythonを入れ直した
 from PIL import Image, ImageTk # pip3 install Pillowでインストール
 import urllib.request # 元から入ってるはず
 import io # 元から入ってるはず
-
+import os
 
 import Processor.BookshelfFunction as BookshelfFunction
-
+# スクリプトのディレクトリパスを取得
+current_directory = os.path.dirname(os.path.abspath(__file__))
+SHELF_JSON_PATH = os.path.join(current_directory, 'Bookshelf.json')
 
 from BaseScreen import BaseScreen # 親クラス
 """
@@ -29,6 +31,9 @@ BORDER = tk.GROOVE # 枠線
 class BookshelfScreen(BaseScreen):
 
     def create_widgets(self):
+        # Bookshelf.jsonからデータを取得
+        item = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
+        """
         # テストデータ
         test_data = [
             {
@@ -217,6 +222,7 @@ class BookshelfScreen(BaseScreen):
             #     "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
             # }
         ]
+        """
 
         """
 
@@ -320,9 +326,11 @@ class BookshelfScreen(BaseScreen):
             print(item) # debug
 
         
-        def search_button(): # 検索実行&結果表示
-            
-            search_book_data = test_data
+        def search_button(item): # 検索実行&結果表示
+            """
+            item: 表示する書籍データのリスト
+            """
+            search_book_data = item
 
         
             ### 表を作成(grid)
@@ -361,20 +369,36 @@ class BookshelfScreen(BaseScreen):
                 isbn_label = tk.Label(search_book_frame, text=item['isbn_13'], relief=BORDER)
                 isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
 
-                # 登録ボタンを追加
-                register_button = tk.Button(search_book_frame, text="削除")
-                border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
-                register_button.grid(row=i, column=3)
-                #header.find('<ButtonRelease-1>', lambda event: delete_item())
-
-                def delete_item(item, index):
+                def delete_item(index):
+                    #削除前のデータを取得
+                    search_book_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
                     # 指定されたインデックスの本を削除
-                    BookshelfFunction.remove_index_elements(search_book_data, index - 3)  # -3 は enumerate で start=3 を指定しているため
+                    # current_directory = os.path.dirname(os.path.abspath(__file__))
+                    # json_file_path = os.path.join(current_directory, 'Bookshelf.json')
 
-                    # 削除後に再描画などの更新が必要な場合はここで行う
-                    search_button()  # 画面の更新を行う関数を呼び出す
+                    # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
+                    search_book_data = BookshelfFunction.remove_index_elements(SHELF_JSON_PATH, search_book_data, index)
 
-    
+                    # 画面の更新処理
+                    refresh_display(search_book_data)
+
+
+                def refresh_display(item):
+                    # 画面の更新処理を実装
+                    # 例: キャンバス内の要素を削除してから再描画するなど
+                    # 以下はキャンバス内の要素を全て削除する例
+                    for widget in search_book_frame.winfo_children():
+                        widget.destroy()
+
+                    # 画面に再度データを表示する処理を呼び出す
+                    search_button(item)
+
+                # 削除ボタンを追加
+                delete_button = tk.Button(search_book_frame, text="削除",command=lambda item=item, index=i: delete_item(index - 3))
+                border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
+                delete_button.grid(row=i, column=3)
+                
+
             ### スクロールバー
             search_book_frame.update() # フレームをアップデート
 
@@ -390,7 +414,7 @@ class BookshelfScreen(BaseScreen):
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y) # スクロールバー
         search_book_canvas.pack(expand=True, fill=tk.BOTH) # キャンバス
         search_book_canvas.create_window((0, 0), window=search_book_frame, anchor="nw") # キャンバスにフレームを設置
-        search_button()
+        search_button(item)
 
 """
 
@@ -403,7 +427,7 @@ test用
 root = tk.Tk()
 
 # クラスをインスタンス化
-book_search_screen = BookShelfScreen(root)
+book_search_screen = BookshelfScreen(root)
 
 # 画面を表示
 book_search_screen.screen_show()

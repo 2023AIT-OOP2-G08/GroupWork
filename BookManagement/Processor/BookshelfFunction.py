@@ -2,19 +2,8 @@ import json
 
 def get_bookshelf(json_file_path):
     with open(json_file_path, 'r', encoding='utf-8') as file:  #jsonファイルを開ける
-
-        data = json.load(file) #dataにjsonファイルの情報を代入
-        info_list = [ 
-            data['title'],
-            data['isbn_13'],
-            data['authors'],
-            data['published_date'],
-            data['page_count'],
-            data['description'],
-            data['publisher'],
-            data['cover_image_url']
-            ]
-    return info_list #リストを返す
+        data = json.load(file)  #dataにjsonファイルの情報を代入
+    return data  # 辞書型のデータを返す
 
 def remove_index_elements(json_file_path,input_list, index):
     """
@@ -26,6 +15,7 @@ def remove_index_elements(json_file_path,input_list, index):
     Returns:
         input_list (list): 削除後のlist
     """
+    print(index)
     # インデックスが範囲内にあることを確認
     if 0 <= index < len(input_list):
         # 指定したインデックスの要素を削除
