@@ -83,22 +83,18 @@ class BookSearchScreen(BaseScreen):
         def on_trans_shelf_button_click(): # 本棚画面遷移
             """
 
-            TODO: まだ本棚画面と繋げれてない
-
             本棚画面へ遷移
 
             windowを生成せずに遷移
             ループを防ぐため、関数内でimport
 
+            """
             self.screen_hide() # Search画面を非表示
 
-            from BookshelfScreen import BookshelfScreen # 本棚画面
+            from BookshelfScreen import Bookshelfscreen # 本棚画面
             
-            shelf_screen = BookshelfScreen(self.root) # 本棚画面インスタンス化
+            shelf_screen = Bookshelfscreen(self.root) # 本棚画面インスタンス化
             shelf_screen.screen_show() # 本棚画面を表示
-
-            """
-            print('go shelf!!') # debug
 
         trans_shelf_button = tk.Button(title_frame, text='本棚画面へ', command=on_trans_shelf_button_click)
         trans_shelf_button.pack(side='left') # 本棚画面遷移ボタン
