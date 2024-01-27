@@ -173,8 +173,6 @@ class BookSearchScreen(BaseScreen):
         def on_add_button_click(item): # 登録した本をjsonに保存
             """
 
-            TODO: moduleがまだうまくいっていない
-
             登録した本をjsonに保存
             (moduleを利用)
 
