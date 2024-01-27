@@ -3,17 +3,38 @@ import tkinter.ttk as ttk # GUI用のものを色々提供
 from tkinter import messagebox # アラートなどを表示できる
 import urllib.request # urlを読み込める
 import io # いろんなI/Oを使える 
+import os # パスを取得できる
 
 from PIL import Image, ImageTk # pip3 install Pillowでインストール
 
 from BaseScreen import BaseScreen # 親クラス
 import Processor # module
 
+
+"""
+
+windowの設定値
+
+画面サイズ、フォントは固定
+
+"""
 SCREEN_SIZE = '840x1000' # 画面サイズ
 FONT_TYPE = 'Helvetica' # フォント
 BORDER = tk.GROOVE # 枠線
-JSON_PATH = 'Bookshelf.json' # jsonのパス
-NO_IMAGE_PATH = 'Images/no_img.png' # no_imgのパス
+
+
+"""
+
+パスを取得
+
+"""
+# カレントディレクトリを取得
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# 絶対パスを作成
+NO_IMAGE_PATH = os.path.join(current_directory, 'Images/no_img.png')
+SHELF_JSON_PATH = os.path.join(current_directory, 'Bookshelf.json')
+
 
 class BookSearchScreen(BaseScreen):
 
@@ -160,10 +181,10 @@ class BookSearchScreen(BaseScreen):
             """
             # print(item) # debug
 
-            if Processor.is_list_in_json_file(item) : # 既に登録されていたら
+            if Processor.is_list_in_json_file(SHELF_JSON_PATH, item) : # 既に登録されていたら
                 messagebox.showinfo('エラー', 'すでに登録されています。')
             else : # 登録されていなければ追加
-                Processor.append_to_json(item)
+                Processor.append_to_json(SHELF_JSON_PATH, item)
 
         def on_book_search_button_click(): # 検索実行&結果表示
             """
@@ -196,7 +217,7 @@ class BookSearchScreen(BaseScreen):
 
 
             if search_book_data != 'No books found': # 本が見つかった場合
-                print(search_book_data)
+                # print(search_book_data) # debug
                 """
 
                 表の作成
