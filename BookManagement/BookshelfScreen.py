@@ -2,6 +2,12 @@ import tkinter as tk # pyenvのpythonを入れ直した
 from PIL import Image, ImageTk # pip3 install Pillowでインストール
 import urllib.request # 元から入ってるはず
 import io # 元から入ってるはず
+import os
+
+import Processor.BookshelfFunction as BookshelfFunction
+# スクリプトのディレクトリパスを取得
+current_directory = os.path.dirname(os.path.abspath(__file__))
+SHELF_JSON_PATH = os.path.join(current_directory, 'Bookshelf.json')
 
 from BaseScreen import BaseScreen # 親クラス
 """
@@ -25,6 +31,9 @@ BORDER = tk.GROOVE # 枠線
 class BookshelfScreen(BaseScreen):
 
     def create_widgets(self):
+        # Bookshelf.jsonからデータを取得
+        item = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
+        """
         # テストデータ
         test_data = [
             {
@@ -213,6 +222,7 @@ class BookshelfScreen(BaseScreen):
             #     "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
             # }
         ]
+        """
 
         """
 
@@ -234,19 +244,7 @@ class BookshelfScreen(BaseScreen):
 
 
         def trans_home_button(): # ホーム画面遷移
-            """
-            TODO: 元の画面に戻る(ホーム画面？？)
-            windowを生成せずに遷移？
-
-            # Search画面を非表示
-            self.screen_hide()
-
-            # Home画面インスタンス化
-            home_screen = HomeScreen(self.root)
-            # 画面を表示
-            home_screen.screen_show()
-
-            """
+      
             # Search画面を非表示
             self.screen_hide()
             print('go home!!') # debug
@@ -259,20 +257,7 @@ class BookshelfScreen(BaseScreen):
         screen_title_label.pack(side="left", padx=245)
 
         def trans_shelf_button(): # 本棚画面遷移
-            """
 
-            TODO: 本棚画面へ遷移
-            windowを生成せずに遷移？
-
-            # Search画面を非表示
-            self.screen_hide()
-
-            # Shelf画面インスタンス化
-            shelf_screen = BookShelfScreen(self.root)
-            # 画面を表示
-            shelf_screen.screen_show()
-
-            """
             # Search画面を非表示
             self.screen_hide()
             print('go shelf!!') # debug
@@ -333,72 +318,21 @@ class BookshelfScreen(BaseScreen):
 
 
         def detail_button(item): # 詳細を表示
-            """
-
-            DtailScreenを表示
-
-            DtailScreen側でself.root.destroy()でwindowを消してもらっている
-
-            itemをここから渡してしえばいいのでは....?
-            ただ、今機能側で必要最低限の情報だけ抜き取ってリストにして返してるから、それを変えないといけない？
-            (今はテスト用リストで全部入ってる)
-
-            """
+        
             book_details_screen_root = tk.Toplevel()
             book_details_screen = BookDetailsScreen(book_details_screen_root)
             book_details_screen.screen_show()
 
             print(item) # debug
 
-        # def add_button(item): # 登録した本をjsonに保存
-        #     """
+        
+        def search_button(item): # 検索実行&結果表示
+            """
+            item: 表示する書籍データのリスト
+            """
+            search_book_data = item
 
-            # 登録した本をjsonに保存？
-
-            # import json
-
-            # # 既存のJSONファイルの読み込み
-            # file_path = "example.json"
-
-            # with open(file_path, "r") as file:
-            #     data = json.load(file)
-
-            # # 既存のデータに新しいデータを追加
-            # data.update(item)
-
-            # # 変更を JSON ファイルに書き込む
-            # with open(file_path, "w") as file:
-            #     json.dump(data, file, indent=2)
-
-            
-            # print(item)
-
-        def search_button(): # 検索実行&結果表示
-            
-
-        #     TODO: ここで検索結果を受け取る
-
-        #     [jsonの場合]
-        #     # JSON文字列をPythonのリストに変換
-        #     import json
-
-        #     try:
-        #         search_book_data = json.loads(json_data_string)
-        #         # print("受け取ったJSONデータ（リスト形式）:", json_data_list) 
-
-        #     except json.JSONDecodeError as e:
-        #         print("JSONデコードエラー:", e)
-
-        #     [リストの場合]
-        #     search_book_data = search_func.search_books_by_title(book_search_textbox.get())
-        #     (search関数はリストを返すmoduleの関数)
-
-        #     """
-        #     # test用
-        #     print(book_search_textbox.get() + 'で検索')
-            search_book_data = test_data
-
-
+        
             ### 表を作成(grid)
             headers = ['Image', 'Title', 'ISBN-13', 'Action'] # 列名
             for j, header in enumerate(headers): # header配置
@@ -435,10 +369,35 @@ class BookshelfScreen(BaseScreen):
                 isbn_label = tk.Label(search_book_frame, text=item['isbn_13'], relief=BORDER)
                 isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
 
-                # 登録ボタンを追加
-                register_button = tk.Button(search_book_frame, text="登録")
+                def delete_item(index):
+                    #削除前のデータを取得
+                    search_book_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
+                    # 指定されたインデックスの本を削除
+                    # current_directory = os.path.dirname(os.path.abspath(__file__))
+                    # json_file_path = os.path.join(current_directory, 'Bookshelf.json')
+
+                    # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
+                    search_book_data = BookshelfFunction.remove_index_elements(SHELF_JSON_PATH, search_book_data, index)
+
+                    # 画面の更新処理
+                    refresh_display(search_book_data)
+
+
+                def refresh_display(item):
+                    # 画面の更新処理を実装
+                    # 例: キャンバス内の要素を削除してから再描画するなど
+                    # 以下はキャンバス内の要素を全て削除する例
+                    for widget in search_book_frame.winfo_children():
+                        widget.destroy()
+
+                    # 画面に再度データを表示する処理を呼び出す
+                    search_button(item)
+
+                # 削除ボタンを追加
+                delete_button = tk.Button(search_book_frame, text="削除",command=lambda item=item, index=i: delete_item(index - 3))
                 border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
-                register_button.grid(row=i, column=3)
+                delete_button.grid(row=i, column=3)
+                
 
             ### スクロールバー
             search_book_frame.update() # フレームをアップデート
@@ -455,7 +414,7 @@ class BookshelfScreen(BaseScreen):
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y) # スクロールバー
         search_book_canvas.pack(expand=True, fill=tk.BOTH) # キャンバス
         search_book_canvas.create_window((0, 0), window=search_book_frame, anchor="nw") # キャンバスにフレームを設置
-        search_button()
+        search_button(item)
 
 """
 
@@ -468,7 +427,7 @@ test用
 root = tk.Tk()
 
 # クラスをインスタンス化
-book_search_screen = BookShelfScreen(root)
+book_search_screen = BookshelfScreen(root)
 
 # 画面を表示
 book_search_screen.screen_show()

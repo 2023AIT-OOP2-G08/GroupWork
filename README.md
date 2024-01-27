@@ -2,6 +2,9 @@
 ## Check List
 - [CheckList.xlsx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14048695/CheckList.xlsx)
 
+## 発表資料
+- [オブ演発表資料.pptx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14066010/default.pptx)
+
 
 ## Initial Setting
 <pre>
