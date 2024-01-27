@@ -2,6 +2,9 @@
 ## Check List
 - [CheckList.xlsx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14048695/CheckList.xlsx)
 
+## 発表資料
+- [オブ演発表資料.pptx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14066010/default.pptx)
+
 
 ## Initial Setting
 <pre>
@@ -105,6 +108,7 @@ PC用GUIアプリ
 - 書籍検索画面 
 - 本棚画面
 - 書籍詳細画面
+- 画面サイズは検索画面の「840x1000」フォントは「Helvetica」に統一
 
 ## 画面遷移図
 ![](img/ScreenTransitionDiagram.drawio.png)

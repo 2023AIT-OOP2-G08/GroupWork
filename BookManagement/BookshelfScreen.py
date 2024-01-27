@@ -22,11 +22,9 @@ SCREEN_SIZE = '840x1000' # 画面サイズ
 FONT_TYPE = 'Helvetica' # フォント
 BORDER = tk.GROOVE # 枠線
 
-class BookSearchScreen(BaseScreen):
+class BookshelfScreen(BaseScreen):
 
     def create_widgets(self):
-
-
         # テストデータ
         test_data = [
             {
@@ -132,6 +130,7 @@ class BookSearchScreen(BaseScreen):
             {
                 "title": "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計",
                 "isbn_13": "9784798155456",
+
                 "authors": [
                     "原田秀司"
                 ],
@@ -191,18 +190,6 @@ class BookSearchScreen(BaseScreen):
             },
             {
                 "title": "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計",
-                "isbn_13": "9784798155456",
-                "authors": [
-                    "原田秀司"
-                ],
-                "published_date": "2019-01-21",
-                "page_count": 210,
-                "description": "使いやすい理由とは何か 本書はUIにおけるデザインの定義から、 ハードおよびソフトによる制約、人間の心理による影響、 そして具体的にデザインを形にする方法までを、 図や画像を使いながら、わかりやすく体系的に解説していきます。 Webサイトの閲覧者やアプリのユーザーは、 いつのまにか迷ったり、わからなくなったり、 操作がしっくりこなかったりすることがあります。 本書を読むと「わかりやすさ」と「使いやすさ」の要点がわかるので、 ユーザーを迷わせない、最適なUIを見つけることができます。 デザイナーはもちろん、エンジニア、ディレクター、発注者など、 UI制作に関わる、あらゆる方におすすめの1冊です。 ＊本書は2013年刊行の『UIデザインの教科書』をもとにしていますが、 最新環境にあわせて、構成及び内容を全面的に書き直しています。 〈こんな人のための本です〉 ・UIデザインの基本的な考え方を学びたい ・わかりやすさや使いやすさの理由が知りたい ・最新のデバイスごとの違いやルールを知りたい ・UIデザインのチェック項目が知りたい ・UIデザインを説明するためのロジックが学びたい ...etc 〈目次〉 第1章 デザインの目的とUI/UX 第2章 物理的な制約 第3章 ソフトウェアの影響 第4章 人間の認知特性 第5章 階層と構造 第6章 ナビゲーションとインタラクション 第7章 デザインを形にする",
-                "publisher": "翔泳社",
-                "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-            },
-            {
-                "title": "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計　",
                 "isbn_13": "9784798155456",
                 "authors": [
                     "原田秀司"
@@ -213,6 +200,18 @@ class BookSearchScreen(BaseScreen):
                 "publisher": "翔泳社",
                 "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
             }
+            # {
+            #     "title": "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計　",
+            #     "isbn_13": "9784798155456",
+            #     "authors": [
+            #         "原田秀司"
+            #     ],
+            #     "published_date": "2019-01-21",
+            #     "page_count": 210,
+            #     "description": "使いやすい理由とは何か 本書はUIにおけるデザインの定義から、 ハードおよびソフトによる制約、人間の心理による影響、 そして具体的にデザインを形にする方法までを、 図や画像を使いながら、わかりやすく体系的に解説していきます。 Webサイトの閲覧者やアプリのユーザーは、 いつのまにか迷ったり、わからなくなったり、 操作がしっくりこなかったりすることがあります。 本書を読むと「わかりやすさ」と「使いやすさ」の要点がわかるので、 ユーザーを迷わせない、最適なUIを見つけることができます。 デザイナーはもちろん、エンジニア、ディレクター、発注者など、 UI制作に関わる、あらゆる方におすすめの1冊です。 ＊本書は2013年刊行の『UIデザインの教科書』をもとにしていますが、 最新環境にあわせて、構成及び内容を全面的に書き直しています。 〈こんな人のための本です〉 ・UIデザインの基本的な考え方を学びたい ・わかりやすさや使いやすさの理由が知りたい ・最新のデバイスごとの違いやルールを知りたい ・UIデザインのチェック項目が知りたい ・UIデザインを説明するためのロジックが学びたい ...etc 〈目次〉 第1章 デザインの目的とUI/UX 第2章 物理的な制約 第3章 ソフトウェアの影響 第4章 人間の認知特性 第5章 階層と構造 第6章 ナビゲーションとインタラクション 第7章 デザインを形にする",
+            #     "publisher": "翔泳社",
+            #     "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+            # }
         ]
 
         """
@@ -222,7 +221,7 @@ class BookSearchScreen(BaseScreen):
 
         """
         ### 画面設定
-        self.root.title('検索ページ') # 画面タイトル
+        self.root.title('本棚') # 画面タイトル
         self.root.geometry(SCREEN_SIZE) # 画面サイズ
         self.root.option_add('*font', [FONT_TYPE, 16]) # フォント
 
@@ -294,7 +293,7 @@ class BookSearchScreen(BaseScreen):
 
 
         ### 検索結果フレーム
-        search_book_data = [] # 検索結果を受け取るリスト
+       
         photos = [] # ImageTk.PhotoImageオブジェクトを保持するリスト
 
         # debug用 bg付き
@@ -351,52 +350,52 @@ class BookSearchScreen(BaseScreen):
 
             print(item) # debug
 
-        def add_button(item): # 登録した本をjsonに保存
-            """
+        # def add_button(item): # 登録した本をjsonに保存
+        #     """
 
-            登録した本をjsonに保存？
+            # 登録した本をjsonに保存？
 
-            import json
+            # import json
 
-            # 既存のJSONファイルの読み込み
-            file_path = "example.json"
+            # # 既存のJSONファイルの読み込み
+            # file_path = "example.json"
 
-            with open(file_path, "r") as file:
-                data = json.load(file)
+            # with open(file_path, "r") as file:
+            #     data = json.load(file)
 
-            # 既存のデータに新しいデータを追加
-            data.update(item)
+            # # 既存のデータに新しいデータを追加
+            # data.update(item)
 
-            # 変更を JSON ファイルに書き込む
-            with open(file_path, "w") as file:
-                json.dump(data, file, indent=2)
+            # # 変更を JSON ファイルに書き込む
+            # with open(file_path, "w") as file:
+            #     json.dump(data, file, indent=2)
 
-            """
-            print(item)
+            
+            # print(item)
 
         def search_button(): # 検索実行&結果表示
-            """
+            
 
-            TODO: ここで検索結果を受け取る
+        #     TODO: ここで検索結果を受け取る
 
-            [jsonの場合]
-            # JSON文字列をPythonのリストに変換
-            import json
+        #     [jsonの場合]
+        #     # JSON文字列をPythonのリストに変換
+        #     import json
 
-            try:
-                search_book_data = json.loads(json_data_string)
-                # print("受け取ったJSONデータ（リスト形式）:", json_data_list) 
+        #     try:
+        #         search_book_data = json.loads(json_data_string)
+        #         # print("受け取ったJSONデータ（リスト形式）:", json_data_list) 
 
-            except json.JSONDecodeError as e:
-                print("JSONデコードエラー:", e)
+        #     except json.JSONDecodeError as e:
+        #         print("JSONデコードエラー:", e)
 
-            [リストの場合]
-            search_book_data = search_func.search_books_by_title(book_search_textbox.get())
-            (search関数はリストを返すmoduleの関数)
+        #     [リストの場合]
+        #     search_book_data = search_func.search_books_by_title(book_search_textbox.get())
+        #     (search関数はリストを返すmoduleの関数)
 
-            """
-            # test用
-            print(book_search_textbox.get() + 'で検索')
+        #     """
+        #     # test用
+        #     print(book_search_textbox.get() + 'で検索')
             search_book_data = test_data
 
 
@@ -414,10 +413,10 @@ class BookSearchScreen(BaseScreen):
                 # ダウンロードした画像データをPIL.Imageオブジェクトに変換
                 im = Image.open(io.BytesIO(raw_data))
 
+                
                 # 画像のサイズを半分にする
                 im = im.resize((im.width // 2, im.height // 2))
                 
-
                 # PIL.Imageオブジェクトをtkinterで使用可能なImageTk.PhotoImageオブジェクトに変換
                 photo = ImageTk.PhotoImage(im)
                 photos.append(photo)  # 画像をリストに追加
@@ -437,10 +436,10 @@ class BookSearchScreen(BaseScreen):
                 isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
 
                 # 登録ボタンを追加
-                register_button = tk.Button(search_book_frame, text="登録", command=lambda item=item: add_button(item))
+                register_button = tk.Button(search_book_frame, text="登録")
                 border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
                 register_button.grid(row=i, column=3)
-            
+
             ### スクロールバー
             search_book_frame.update() # フレームをアップデート
 
@@ -456,10 +455,7 @@ class BookSearchScreen(BaseScreen):
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y) # スクロールバー
         search_book_canvas.pack(expand=True, fill=tk.BOTH) # キャンバス
         search_book_canvas.create_window((0, 0), window=search_book_frame, anchor="nw") # キャンバスにフレームを設置
-
-
-
-
+        search_button()
 
 """
 
@@ -468,15 +464,14 @@ test用
 この辺はホーム画面に記述
 
 """
-# # tkinterウィンドウを作成
-# root = tk.Tk()
+# tkinterウィンドウを作成
+root = tk.Tk()
 
-# # クラスをインスタンス化
-# book_search_screen = BookSearchScreen(root)
+# クラスをインスタンス化
+book_search_screen = BookShelfScreen(root)
 
-# # 画面を表示
-# book_search_screen.screen_show()
+# 画面を表示
+book_search_screen.screen_show()
 
-# ### ウィンドウを表示
-# root.mainloop()
-
+### ウィンドウを表示
+root.mainloop()
