@@ -25,6 +25,12 @@ class BookDetailsScreen(BaseScreen):
         BookDetailsScreen.outside_data = data
         self.root = root
         self.frame = tk.Frame(root)
+
+        # ウィンドウをモーダルにする
+        self.frame.grab_set()
+        # 他のウィンドウを操作できないようにする
+        self.frame.wait_window(self.root)
+
         self.create_widgets()
 
     # def get_data(self, data):
