@@ -3,6 +3,10 @@ from PIL import Image, ImageTk # pip3 install Pillowでインストール
 import urllib.request # 元から入ってるはず
 import io # 元から入ってるはず
 
+
+import Processor.BookshelfFunction as BookshelfFunction
+
+
 from BaseScreen import BaseScreen # 親クラス
 """
 TODO: 画面遷移するクラスをインポート
@@ -234,19 +238,7 @@ class BookshelfScreen(BaseScreen):
 
 
         def trans_home_button(): # ホーム画面遷移
-            """
-            TODO: 元の画面に戻る(ホーム画面？？)
-            windowを生成せずに遷移？
-
-            # Search画面を非表示
-            self.screen_hide()
-
-            # Home画面インスタンス化
-            home_screen = HomeScreen(self.root)
-            # 画面を表示
-            home_screen.screen_show()
-
-            """
+      
             # Search画面を非表示
             self.screen_hide()
             print('go home!!') # debug
@@ -259,20 +251,7 @@ class BookshelfScreen(BaseScreen):
         screen_title_label.pack(side="left", padx=245)
 
         def trans_shelf_button(): # 本棚画面遷移
-            """
 
-            TODO: 本棚画面へ遷移
-            windowを生成せずに遷移？
-
-            # Search画面を非表示
-            self.screen_hide()
-
-            # Shelf画面インスタンス化
-            shelf_screen = BookShelfScreen(self.root)
-            # 画面を表示
-            shelf_screen.screen_show()
-
-            """
             # Search画面を非表示
             self.screen_hide()
             print('go shelf!!') # debug
@@ -333,72 +312,19 @@ class BookshelfScreen(BaseScreen):
 
 
         def detail_button(item): # 詳細を表示
-            """
-
-            DtailScreenを表示
-
-            DtailScreen側でself.root.destroy()でwindowを消してもらっている
-
-            itemをここから渡してしえばいいのでは....?
-            ただ、今機能側で必要最低限の情報だけ抜き取ってリストにして返してるから、それを変えないといけない？
-            (今はテスト用リストで全部入ってる)
-
-            """
+        
             book_details_screen_root = tk.Toplevel()
             book_details_screen = BookDetailsScreen(book_details_screen_root)
             book_details_screen.screen_show()
 
             print(item) # debug
 
-        # def add_button(item): # 登録した本をjsonに保存
-        #     """
-
-            # 登録した本をjsonに保存？
-
-            # import json
-
-            # # 既存のJSONファイルの読み込み
-            # file_path = "example.json"
-
-            # with open(file_path, "r") as file:
-            #     data = json.load(file)
-
-            # # 既存のデータに新しいデータを追加
-            # data.update(item)
-
-            # # 変更を JSON ファイルに書き込む
-            # with open(file_path, "w") as file:
-            #     json.dump(data, file, indent=2)
-
-            
-            # print(item)
-
+        
         def search_button(): # 検索実行&結果表示
             
-
-        #     TODO: ここで検索結果を受け取る
-
-        #     [jsonの場合]
-        #     # JSON文字列をPythonのリストに変換
-        #     import json
-
-        #     try:
-        #         search_book_data = json.loads(json_data_string)
-        #         # print("受け取ったJSONデータ（リスト形式）:", json_data_list) 
-
-        #     except json.JSONDecodeError as e:
-        #         print("JSONデコードエラー:", e)
-
-        #     [リストの場合]
-        #     search_book_data = search_func.search_books_by_title(book_search_textbox.get())
-        #     (search関数はリストを返すmoduleの関数)
-
-        #     """
-        #     # test用
-        #     print(book_search_textbox.get() + 'で検索')
             search_book_data = test_data
 
-
+        
             ### 表を作成(grid)
             headers = ['Image', 'Title', 'ISBN-13', 'Action'] # 列名
             for j, header in enumerate(headers): # header配置
@@ -436,10 +362,19 @@ class BookshelfScreen(BaseScreen):
                 isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
 
                 # 登録ボタンを追加
-                register_button = tk.Button(search_book_frame, text="登録")
+                register_button = tk.Button(search_book_frame, text="削除")
                 border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
                 register_button.grid(row=i, column=3)
+                #header.find('<ButtonRelease-1>', lambda event: delete_item())
 
+                def delete_item(item, index):
+                    # 指定されたインデックスの本を削除
+                    BookshelfFunction.remove_index_elements(search_book_data, index - 3)  # -3 は enumerate で start=3 を指定しているため
+
+                    # 削除後に再描画などの更新が必要な場合はここで行う
+                    search_button()  # 画面の更新を行う関数を呼び出す
+
+    
             ### スクロールバー
             search_book_frame.update() # フレームをアップデート
 
