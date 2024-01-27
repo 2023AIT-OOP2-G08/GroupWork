@@ -3,26 +3,43 @@ import os
 
 def get_bookshelf(json_file_path):
     with open(json_file_path, 'r', encoding='utf-8') as file:  #jsonファイルを開ける
+        data = json.load(file)  #dataにjsonファイルの情報を代入
+    return data  # 辞書型のデータを返す
 
-        data = json.load(file) #dataにjsonファイルの情報を代入
-        info_list = [ 
-            data['title'],
-            data['isbn_13'],
-            data['authors'],
-            data['published_date'],
-            data['page_count'],
-            data['description'],
-            data['publisher'],
-            data['cover_image_url']
-            ]
-    return info_list #リストを返す
+def remove_index_elements(json_file_path,input_list, index):
+    """
+    指定したindexのlistを削除する
+    Parameters:
+        json_file_path (str): JSONファイルのパス
+        input_list (list): お気に入りした本を格納しているlist 既存のlist
+        index (int): 削除するデータのindexnumber
+    Returns:
+        input_list (list): 削除後のlist
+    """
+    print(index)
+    # インデックスが範囲内にあることを確認
+    if 0 <= index < len(input_list):
+        # 指定したインデックスの要素を削除
+        input_list.pop(index)
+    else:
+        raise IndexError(f"Index out of range: {index}")
 
-def remove_index_elements(input_list, index):
-    #指定したindexのlistを削除する
-    #input_list お気に入りした本を格納しているlist 既存のlist
-    #index 削除するデータのindexnumber
-    #削除機能の時使える
-    input_list.pop(index)
+    # スクリプトのあるディレクトリを取得
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # ベースディレクトリを基準にした相対パスを指定
+    json_file_path = os.path.join(base_dir, json_file_path)
+
+    # JSONファイルに書き込む
+    try:
+        with open(json_file_path, 'w', encoding='utf-8') as file:
+            json.dump(input_list, file, ensure_ascii=False, indent=4)
+    except IOError as e:
+        print(f"IOError: {e}")
+        raise
+    except json.JSONDecodeError as e:
+        print(f"JSONDecodeError: {e}")
+        raise
 
     return input_list
 
