@@ -2,10 +2,12 @@ import tkinter as tk # pyenvのpythonを入れ直した
 from PIL import Image, ImageTk # pip3 install Pillowでインストール
 import urllib.request # 元から入ってるはず
 import io # 元から入ってるはず
-
+import os
 
 import Processor.BookshelfFunction as BookshelfFunction
-
+# スクリプトのディレクトリパスを取得
+current_directory = os.path.dirname(os.path.abspath(__file__))
+SHELF_JSON_PATH = os.path.join(current_directory, 'Bookshelf.json')
 
 from BaseScreen import BaseScreen # 親クラス
 """
@@ -361,20 +363,35 @@ class BookshelfScreen(BaseScreen):
                 isbn_label = tk.Label(search_book_frame, text=item['isbn_13'], relief=BORDER)
                 isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
 
-                # 登録ボタンを追加
-                register_button = tk.Button(search_book_frame, text="削除")
-                border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
-                register_button.grid(row=i, column=3)
-                #header.find('<ButtonRelease-1>', lambda event: delete_item())
-
                 def delete_item(item, index):
+                    search_book_data = []
                     # 指定されたインデックスの本を削除
-                    BookshelfFunction.remove_index_elements(search_book_data, index - 3)  # -3 は enumerate で start=3 を指定しているため
+                    current_directory = os.path.dirname(os.path.abspath(__file__))
+                    json_file_path = os.path.join(current_directory, 'Bookshelf.json')
 
-                    # 削除後に再描画などの更新が必要な場合はここで行う
-                    search_button()  # 画面の更新を行う関数を呼び出す
+                    # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
+                    search_book_data, removed_item = BookshelfFunction.remove_index_elements(json_file_path, search_book_data, index - 3)
 
-    
+                    # 画面の更新処理
+                    refresh_display(search_book_data, removed_item)
+
+
+                def refresh_display(updated_data, removed_item):
+                    # 画面の更新処理を実装
+                    # 例: キャンバス内の要素を削除してから再描画するなど
+                    # 以下はキャンバス内の要素を全て削除する例
+                    for widget in search_book_frame.winfo_children():
+                        widget.destroy()
+
+                    # 画面に再度データを表示する処理を呼び出す
+                    search_button()
+
+                # 削除ボタンを追加
+                delete_button = tk.Button(search_book_frame, text="削除",command=lambda item=item, index=i: delete_item(item, index))
+                border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
+                delete_button.grid(row=i, column=3)
+                
+
             ### スクロールバー
             search_book_frame.update() # フレームをアップデート
 
@@ -403,7 +420,7 @@ test用
 root = tk.Tk()
 
 # クラスをインスタンス化
-book_search_screen = BookShelfScreen(root)
+book_search_screen = BookshelfScreen(root)
 
 # 画面を表示
 book_search_screen.screen_show()
