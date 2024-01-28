@@ -51,14 +51,17 @@ class BookDetailsScreen(BaseScreen):
         if data_list["authors"] != "No publisher information available":
             data_list["authors"] = "\n".join(data_list["authors"])
 
-        # 画面タイトル
-        self.root.title("書籍詳細画面")
         # 画面サイズ
         self.root.geometry(SCREEN_SIZE)
 
-        # タイトルの作成
-        label2 = tk.Label(self.frame, text="書籍詳細画面", font=(FONT_TYPE, 30, "bold"))
-        label2.place(x=207, y=20)
+        # 画面を最前面に固定
+        self.root.attributes("-topmost", True)
+
+        # タイトルのラベル作成
+        window_title_label = tk.Label(
+            self.frame, text="書籍詳細", font=(FONT_TYPE, 30, "bold")
+        )
+        window_title_label.place(x=207, y=20)
 
         # 表紙の画像表示
         if data_list["cover_image_url"] != "No cover image available":  # 画像がある場合
