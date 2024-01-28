@@ -16,6 +16,7 @@ import Processor # module
 windowの設定値
 
 画面サイズ、フォントは固定
+ホームスクリーンで設定されてればいいのでは？
 
 """
 SCREEN_SIZE = '840x1000' # 画面サイズ
@@ -74,11 +75,11 @@ class BookSearchScreen(BaseScreen):
             home_screen = HomeScreen(self.root) # Home画面インスタンス化
             home_screen.screen_show() # 画面を表示
             
-        trans_home_button = tk.Button(title_frame, text='元の画面へ', command=on_trans_home_button_click)
+        trans_home_button = tk.Button(title_frame, text='ホーム画面へ', command=on_trans_home_button_click)
         trans_home_button.pack(side='left') # ホーム画面遷移ボタン
 
         screen_title_label = tk.Label(title_frame, text='書籍検索', font=("Helvetica", 30, "bold"))
-        screen_title_label.pack(side="left", padx=245) # 真ん中の文字
+        screen_title_label.pack(side="left", padx=236) # 真ん中の文字
 
         def on_trans_shelf_button_click(): # 本棚画面遷移
             """
