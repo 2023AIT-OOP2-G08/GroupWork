@@ -1,4 +1,5 @@
 import json
+import os
 
 def get_bookshelf(json_file_path):
     with open(json_file_path, 'r', encoding='utf-8') as file:  #jsonファイルを開ける
