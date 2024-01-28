@@ -118,11 +118,10 @@ class BookSearchScreen(BaseScreen):
 
 
         ### 検索結果の表フレーム
-        # debug用bg付き
-        search_result_table_canvas = tk.Canvas(book_search_screen_frame, bg='green') # スクロールバーの為のキャンバス
-        search_result_table_frame = tk.Frame(search_result_table_canvas,bg='red', width=840, height=0) # 検索結果フレーム(初期設定)
+        search_result_table_canvas = tk.Canvas(book_search_screen_frame) # スクロールバーの為のキャンバス
+        search_result_table_frame = tk.Frame(search_result_table_canvas, width=840, height=1200, bd=2, relief=BORDER) # 検索結果フレーム(初期設定)
         scrollbar = tk.Scrollbar(search_result_table_canvas, orient=tk.VERTICAL, command=search_result_table_canvas.yview) # スクロールバー
-
+        # debug用 bg='green', bg='red'
         """
 
         TODO: トラックパッドでスクロール
@@ -174,10 +173,14 @@ class BookSearchScreen(BaseScreen):
             """
             # print(item) # debug
 
-            if Processor.is_list_in_json_file(SHELF_JSON_PATH, item) : # 既に登録されていたら
+            if not Processor.is_list_in_json_file(SHELF_JSON_PATH, item) : # 登録されていなければ
+
+                yes_no_result = messagebox.askyesno("確認", "本棚に登録しますか？")
+                if yes_no_result: # yes が選択されたら追加
+                    Processor.append_to_json(SHELF_JSON_PATH, item)
+
+            else : # 既に登録されていたら
                 messagebox.showinfo('エラー', 'すでに登録されています。')
-            else : # 登録されていなければ追加
-                Processor.append_to_json(SHELF_JSON_PATH, item)
 
         def on_book_search_button_click(): # 検索実行&結果表示
             """
@@ -271,17 +274,21 @@ class BookSearchScreen(BaseScreen):
                 No books foundを出す。
 
                 """
-                no_book_label = tk.Label(search_result_table_frame, text=search_book_data, font=("Helvetica", 100, "bold"))
-                no_book_label.pack(pady=20)
+                no_book_label = tk.Label(search_result_table_frame, text=search_book_data, font=("Helvetica", 20, "bold"))
+                no_book_label.pack(ipadx=340, pady=20, anchor="center")
 
 
         ### 配置
         book_search_button = tk.Button(search_frame, text="検索", command=on_book_search_button_click) # 検索実行ボタン
         book_search_button.pack(side="left")
-
+        
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y) # スクロールバー
         search_result_table_canvas.pack(expand=True, fill=tk.BOTH) # キャンバス
         search_result_table_canvas.create_window((0, 0), window=search_result_table_frame, anchor="nw") # キャンバスにフレームを設置
+
+        frame_height = search_result_table_frame.winfo_reqheight() # フレームの高さを取得
+        search_result_table_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
+        search_result_table_canvas.configure(yscrollcommand=scrollbar.set) # スクロールの設定
 
 
 
