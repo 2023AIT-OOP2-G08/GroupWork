@@ -149,9 +149,7 @@ class BookSearchScreen(BaseScreen):
         def on_detail_button_click(item): # 詳細を表示
             """
 
-            TODO: 表示されている間、検索画面をさわれないようにする
-            
-            DtailScreenを表示
+            詳細画面を表示
 
             ループしないように関数内にimport
             DtailScreen側でself.root.destroy()でwindowを消してもらっている
