@@ -29,10 +29,8 @@ class BookDetailsScreen(BaseScreen):
         self.root = root
         self.frame = tk.Frame(root)
 
-        # ウィンドウをモーダルにする
-        self.frame.grab_set()
-        # 他のウィンドウを操作できないようにする
-        self.frame.wait_window(self.root)
+        # ウィンドウをモーダルにする(他のウィンドウが操作できなくなる)
+        self.root.grab_set()
 
         self.create_widgets()
 
