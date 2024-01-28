@@ -54,7 +54,7 @@ class BookDetailsScreen(BaseScreen):
         # 画面サイズ
         self.root.geometry(SCREEN_SIZE)
 
-        # 画面を最前面にする
+        # 画面を最前面に固定
         self.root.attributes("-topmost", True)
 
         # タイトルのラベル作成
