@@ -10,7 +10,12 @@ from BaseScreen import BaseScreen
 
 SCREEN_SIZE = "600x600"  # 画面サイズ
 FONT_TYPE = "Helvetica"  # フォント
-NO_IMAGE_PATH = os.path.join("Images", "no_img.png")  # no_imgの相対パス
+
+# カレントディレクトリを取得
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# 絶対パスの作成
+NO_IMAGE_PATH = os.path.join(current_directory, "Images/no_img.png")
 
 
 class BookDetailsScreen(BaseScreen):
