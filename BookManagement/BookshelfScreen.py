@@ -6,7 +6,7 @@ import Processor.BookshelfFunction as BookshelfFunction
 
 from BaseScreen import BaseScreen # 親クラス
 from PIL import Image, ImageTk # pip3 install Pillowでインス
-from Processor import BookshelfFunction
+import Processor
 
 
 """
@@ -403,11 +403,11 @@ class BookshelfScreen(BaseScreen):
             # Processor.remove_index_elements(item, index - 3)  # -3 は enumerate で start=3 を指定しているため
 
             #削除前のデータを取得
-            search_book_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
+            search_book_data = Processor.get_bookshelf(SHELF_JSON_PATH)
             # 指定されたインデックスの本を削除
 
             # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
-            search_book_data = BookshelfFunction.remove_index_elements(SHELF_JSON_PATH, search_book_data, index)
+            search_book_data = Processor.remove_index_elements(SHELF_JSON_PATH, search_book_data, index)
 
             update_table()  # 画面の更新を行う関数を呼び出す
 
