@@ -409,6 +409,10 @@ class BookshelfScreen(BaseScreen):
             # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
             search_book_data = Processor.remove_index_elements(SHELF_JSON_PATH, search_book_data, index)
 
+
+             # Save the updated shelf data back to the JSON file
+            Processor.save_bookshelf(SHELF_JSON_PATH, search_book_data)
+
             update_table()  # 画面の更新を行う関数を呼び出す
 
         def update_table():
@@ -435,10 +439,11 @@ class BookshelfScreen(BaseScreen):
 
             ↓↓↓↓↓これはtest用
             """
-            
-            bookself_data = bookself_data = Processor.get_bookshelf
+            bookself_data = test_data # test用
 
-            bookself_data = self.input_data  # TODO: case2
+            # bookself_data = bookself_data = Processor.get_bookshelf
+
+            # bookself_data = self.input_data  # TODO: case2
 
 
             ### 初期化
@@ -482,7 +487,7 @@ class BookshelfScreen(BaseScreen):
 
                 # 削除ボタン
                 button_border_label = tk.Label(bookself_table_frame, relief=BORDER, width=10) # 枠線
-                register_button = tk.Button(bookself_table_frame, text="削除", command=lambda item=item: on_delete_button_click(item))
+                register_button = tk.Button(bookself_table_frame, text="削除", command=lambda item=item, index=i: on_delete_button_click(item, index))
                 button_border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
                 register_button.grid(row=i, column=3)
             
