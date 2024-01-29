@@ -1,40 +1,67 @@
 import tkinter as tk # pyenvのpythonを入れ直した
-from PIL import Image, ImageTk # pip3 install Pillowでインストール
-import urllib.request # 元から入ってるはず
-import io # 元から入ってるはず
-import os
-
+import urllib.request # urlを読み込める
+import io # いろんなI/Oを使える 
+import os # パスを取得できる
 import Processor.BookshelfFunction as BookshelfFunction
+
+from BaseScreen import BaseScreen # 親クラス
+from PIL import Image, ImageTk # pip3 install Pillowでインス
+from Processor import BookshelfFunction
+
+
+"""
+
+パスを取得
+
+"""
 # スクリプトのディレクトリパスを取得
 current_directory = os.path.dirname(os.path.abspath(__file__))
 NO_IMAGE_PATH = os.path.join(current_directory, 'Images/no_img.png')
 SHELF_JSON_PATH = os.path.join(current_directory, 'Bookshelf.json')
 
-from BaseScreen import BaseScreen # 親クラス
-"""
-TODO: 画面遷移するクラスをインポート
-from HomeScreen import HomeScreen # ホーム画面
-from BookShelfScreen import BookShelfScreen # 本棚画面
-
-"""
-from BookDetailsScreen import BookDetailsScreen # 詳細画面
-
-"""
-TODO: 検索機能のmoduleをインポート
-from ../Processor/BookSearchFunction.py import search_func # 詳細画面
 
 """
 
+windowの設定値
+
+画面サイズ、フォントは固定
+ホームスクリーンで設定されてればいいのでは？
+
+"""
 SCREEN_SIZE = '840x1000' # 画面サイズ
 FONT_TYPE = 'Helvetica' # フォント
 BORDER = tk.GROOVE # 枠線
 
+
 class BookshelfScreen(BaseScreen):
 
+    photos = [] # 本画像保存用リスト
+    input_data = []  # 更新されるリストをクラスに用意
+
+    """
+
+    TODO: case1
+    なにもいらない
+
+    TODO: case2
+    更新されるリストをクラスに用意しなければいけない
+    input_data = {} など
+
+    """
+
     def create_widgets(self):
-        # Bookshelf.jsonからデータを取得
+        """
+
+        ウィジェットの作成
+        (BaseScreenのオーバーライド)
+
+        """
         item = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
-        
+        """
+
+        TODO: テストデータなので、最後は消してください。
+
+        """
         # テストデータ
         test_data = [
             {
@@ -49,7 +76,7 @@ class BookshelfScreen(BaseScreen):
                 "publisher": "株式会社 オーム社",
                 "cover_image_url": "http://books.google.com/books/content?id=oFrK2r8rQbEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
             },
-            {
+             {
                 "title": "ハッカーと画家",
                 "isbn_13": "9784274065972",
                 "authors": "No authors available",
@@ -223,197 +250,287 @@ class BookshelfScreen(BaseScreen):
                 "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
             }
         ]
-    
 
-        """
+        # TODO: case2 - input_dataにデータを設定
+        self.input_data = test_data  # または、他の方法でデータを取得
 
-        TODO: この画面の設定
-        ここで設定していいのでしょうか
-
-        """
         ### 画面設定
         self.root.title('本棚') # 画面タイトル
         self.root.geometry(SCREEN_SIZE) # 画面サイズ
         self.root.option_add('*font', [FONT_TYPE, 16]) # フォント
 
-        book_search_screen_frame = self.frame
+        book_self_screen_frame = self.frame # 全体のframeを設置
 
 
         ### タイトルフレーム
-        title_frame = tk.Frame(book_search_screen_frame) 
+        title_frame = tk.Frame(book_self_screen_frame) 
         title_frame.pack(fill='x',pady=20)
 
+        def on_trans_home_button_click(): # ホーム画面遷移
+            """
 
-        def trans_home_button(): # ホーム画面遷移
-      
-            # Search画面を非表示
-            self.screen_hide()
-            print('go home!!') # debug
+            ホーム画面へ遷移
+
+            windowを生成せずに遷移
+            ループしないように関数内でimport
+
+            """
+            self.screen_hide() # Search画面を非表示
 
             from HomeScreen import HomeScreen # ホーム画面
-
+            
             home_screen = HomeScreen(self.root) # Home画面インスタンス化
             home_screen.screen_show() # 画面を表示
+            
+        trans_home_button = tk.Button(title_frame, text='ホーム画面へ', command=on_trans_home_button_click)
+        trans_home_button.pack(side='left') # ホーム画面遷移ボタン
 
-        trans_home_button = tk.Button(title_frame, text='元の画面へ', command=trans_home_button)
-        trans_home_button.pack(side='left')
+        screen_title_label = tk.Label(title_frame, text='My本棚', font=("Helvetica", 30, "bold"))
+        screen_title_label.pack(side="left", padx=236) # 真ん中の文字
 
-        screen_title_label = tk.Label(title_frame, text='本棚画面', font=("Helvetica", 30, "bold"))
-        screen_title_label.pack(side="left", padx=245)
+        def on_trans_search_button_click(): # 検索画面遷移
+            """
 
-        def trans_shelf_button(): # 検索画面遷移
+            検索画面へ遷移
 
-            # Search画面を非表示
-            self.screen_hide()
-            print('go shelf!!') # debug
+            windowを生成せずに遷移
+            ループを防ぐため、関数内でimport
+
+            """
+            self.screen_hide() # Search画面を非表示
 
             from BookSearchScreen import BookSearchScreen # 本棚画面
             
             search_screen = BookSearchScreen(self.root) # 本棚画面インスタンス化
             search_screen.screen_show() # 本棚画面を表示
 
-
-        trans_shelf_button = tk.Button(title_frame, text='検索画面へ', command=trans_shelf_button)
-        trans_shelf_button.pack(side='left')
-
-
-        ### 検索欄フレーム
-        search_frame = tk.Frame(book_search_screen_frame) 
-        search_frame.pack(pady=20)
-
-        search_lbl = tk.Label(search_frame,text='検索ボックス:')
-        search_lbl.pack(side="left")
-
-        book_search_textbox = tk.Entry(search_frame,width=50) # テキストボックス
-        book_search_textbox.pack(side="left", padx=5)
+        trans_shelf_button = tk.Button(title_frame, text='検索画面へ', command=on_trans_search_button_click)
+        trans_shelf_button.pack(side='left') # 本棚画面遷移ボタン
 
 
-        ### 検索結果フレーム
-       
-        photos = [] # ImageTk.PhotoImageオブジェクトを保持するリスト
+        ### 表のフレーム
+        # debug用bg付き
+        bookself_table_canvas = tk.Canvas(book_self_screen_frame, bg='green') # スクロールバーの為のキャンバス
+        bookself_table_frame = tk.Frame(bookself_table_canvas,bg='red', width=840, height=0) # 検索結果フレーム(初期設定)
+        scrollbar = tk.Scrollbar(bookself_table_canvas, orient=tk.VERTICAL, command=bookself_table_canvas.yview) # スクロールバー
 
-        # debug用 bg付き
-        search_book_canvas = tk.Canvas(book_search_screen_frame, bg='green') # スクロールバーの為のキャンバス
-        search_book_frame = tk.Frame(search_book_canvas,bg='red', width=840, height=10000) # 検索結果フレーム(初期設定)
-        scrollbar = tk.Scrollbar( # スクロールバー
-                search_book_canvas, orient=tk.VERTICAL, command=search_book_canvas.yview
-            )
+        """
 
-        frame_height = search_book_frame.winfo_reqheight() # フレームの高さを取得
-        # print(frame_height) # debug
-        search_book_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
-        search_book_canvas.configure(yscrollcommand=scrollbar.set) # スクロールバーをキャンバスに設定
+        TODO: トラックパッドでスクロール
+
+        優先度はだいぶ低いが、ないと操作しずらい
+
+        
+        ↓動かないやつ(残してあるだけ)
+        def on_canvas_scroll(event): # タッチパッドでスクロール
+            # macOS上でのマウスホイールスクロールイベントに対応
+            if event.num == 5 or event.delta == -120:
+                search_book_canvas.yview_scroll(1, "units")
+            elif event.num == 4 or event.delta == 120:
+                search_book_canvas.yview_scroll(-1, "units")
+
+        # スクロールイベントをCanvasにバインドする
+        search_book_canvas.bind("<MouseWheel>", on_canvas_scroll)
+        search_book_canvas.bind("<Button-4>", on_canvas_scroll)  # Linux対応
+        search_book_canvas.bind("<Button-5>", on_canvas_scroll)  # Linux対応
+
+        """
 
 
-       
+        def on_detail_button_click(item): # 詳細を表示
+            """
 
+            DtailScreenを表示
 
-        def detail_button(item): # 詳細を表示
-            
+            ループしないように関数内にimport
+            DtailScreen側でself.root.destroy()でwindowを消してもらっている
+
+            itemをここから渡す。
+
+            """
             from BookDetailsScreen import BookDetailsScreen # 詳細画面
 
-            book_details_screen_root = tk.Toplevel()
-            book_details_screen = BookDetailsScreen(book_details_screen_root)
-            book_details_screen.screen_show()
+            # print(item) # debug
 
-            print(item) # debug
+            book_details_screen_root = tk.Toplevel() # window作成
+            book_details_screen = BookDetailsScreen(book_details_screen_root, item) # screenをwindowに設定
+            book_details_screen.screen_show() # screenを表示
 
+        """
         
-        def search_button(item): # 検索実行&結果表示
-            """
-            item: 表示する書籍データのリスト
-            """
-            search_book_data = item
-
+        TODO: 追加機能(余裕があれば）
         
-            ### 表を作成(grid)
-            headers = ['Image', 'Title', 'ISBN-13', 'Action'] # 列名
+        お気に入りボタン
+
+        お気に入りの本を実装する場合に、
+        下の関数のpathを変えて、もう一つjsonを作ればもう一つお気に入りの本の本棚を作れると思います。
+        これを実装する可能性見越し、pathはmoduleで作るのではなく、こちらで指定する形にすることをお勧めします。
+        ↓↓↓↓↓↓
+        """
+        # def on_add_button_click(item): # 登録した本をjsonに保存
+        #     """
+
+        #     登録した本をjsonに保存
+        #     (moduleを利用)
+
+        #     """
+        #     # print(item) # debug
+
+        #     if Processor.is_list_in_json_file(SHELF_JSON_PATH, item) : # 既に登録されていたら
+        #         messagebox.showinfo('エラー', 'すでに登録されています。')
+        #     else : # 登録されていなければ追加
+        #         Processor.append_to_json(SHELF_JSON_PATH, item)
+
+
+        def on_delete_button_click(item, index): # 本棚から削除
+            """
+
+            TODO: case1
+            itemを受け取って、json内のデータを消す。
+            検索画面と似たような実装ならば、ここではjson内のデータを消し、表を更新するだけ
+            (重そう、update_table内でmoduleからリストを毎回受け取る。)
+
+            TODO: case2
+            item&何かを受け取って、listの中身と、json内のデータを消す。
+            indexの取得がわからない...
+            (こっちの方が軽そう、update_table内で、リストを更新するだけ)
+
+            消す作業自体は同じくらいだが、case2だとjsonを読み込むという工程が一度で済む。
+            (一つだけ消す時にmoduleで全部読み込んでたらおなじかも)
+
+            """
+            # # 指定されたインデックスの本を削除
+            # Processor.remove_index_elements(item, index - 3)  # -3 は enumerate で start=3 を指定しているため
+
+            #削除前のデータを取得
+            search_book_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
+            # 指定されたインデックスの本を削除
+
+            # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
+            search_book_data = BookshelfFunction.remove_index_elements(SHELF_JSON_PATH, search_book_data, index)
+
+            update_table()  # 画面の更新を行う関数を呼び出す
+
+        def update_table():
+            """
+
+            表の更新
+
+            初期化して、再設定
+
+            """
+
+            """
+
+            TODO: case1
+            ここで、リストを受け取る
+            moduleを利用し、リストを受け取る。
+            bookself_data = bookself_data = Processor.get_bookshelf
+            
+            TODO: case2
+            classに用意されているリストの中身は既に変わっているので、
+            classのinput_dataをこの関数のbookself_dataにいれればいい。
+            bookself_data = BookselfTest.input_data
+            だけでいい
+
+            ↓↓↓↓↓これはtest用
+            """
+            
+            bookself_data = bookself_data = Processor.get_bookshelf
+
+            bookself_data = self.input_data  # TODO: case2
+
+
+            ### 初期化
+            for widget in bookself_table_frame.winfo_children(): # table_frame内のすべての子ウィジェットを破棄
+                widget.destroy()
+            BookshelfScreen.photos = [] # 検索結果の画像を初期化
+
+            headers = ['表紙', 'タイトル', 'ISBN-13', 'Action'] # 列名
             for j, header in enumerate(headers): # header配置
-                header_label = tk.Label(search_book_frame, text=header, relief=BORDER)
-                header_label.grid(row=2, column=j, sticky='ew')
+                header_label = tk.Label(bookself_table_frame, text=header, relief=BORDER)
+                header_label.grid(row=0, column=j, sticky='ew')
+            
+            for i, item in enumerate(bookself_data, start=1): # 表の要素配置(row=3から)
 
-            for i, item in enumerate(search_book_data, start=3):  # start=1 to skip header row
-                # URLから画像データをダウンロード
-                with urllib.request.urlopen(item['cover_image_url']) as u:
-                    raw_data = u.read()
-
-                # ダウンロードした画像データをPIL.Imageオブジェクトに変換
-                im = Image.open(io.BytesIO(raw_data))
-
+                # 画像のダウンロード
+                if item['cover_image_url'] != 'No cover image available': # 画像がある場合
+                    with urllib.request.urlopen(item['cover_image_url']) as u:
+                        raw_data = u.read() # urlから画像をダウンロード
+                    im = Image.open(io.BytesIO(raw_data)) # ダウンロードした画像データをPIL.Imageオブジェクトに変換
+                    im = im.resize((im.width // 2, im.height // 2)) # 画像サイズ変更
                 
-                # 画像のサイズを半分にする
-                im = im.resize((im.width // 2, im.height // 2))
+                else: # 画像がない場合
+                    im = Image.open(NO_IMAGE_PATH) # no_imgをダウンロード
+                    im = im
                 
-                # PIL.Imageオブジェクトをtkinterで使用可能なImageTk.PhotoImageオブジェクトに変換
-                photo = ImageTk.PhotoImage(im)
-                photos.append(photo)  # 画像をリストに追加
+                photo = ImageTk.PhotoImage(im) # ImageTk.PhotoImageオブジェクトに変換
+                BookshelfScreen.photos.append(photo)  # 画像をリストに追加
 
-                border_label = tk.Label(search_book_frame, relief=BORDER) # 枠線
-
-                # ボタンに画像を設定してウィンドウに追加
-                book_button = tk.Button(search_book_frame, image=photo, command=lambda item=item: detail_button(item))
-                border_label.grid(row=i, column=0, sticky=tk.NSEW) # 枠線
+                # ボタンに画像を設定
+                book_border_label = tk.Label(bookself_table_frame, relief=BORDER) # 枠線
+                book_button = tk.Button(bookself_table_frame, image=photo, command=lambda item=item: on_detail_button_click(item))
+                book_border_label.grid(row=i, column=0, sticky=tk.NSEW) # 枠線
                 book_button.grid(row=i, column=0)
                 
-                # タイトルとISBN-13を表示
-                title_label = tk.Label(search_book_frame, text=item['title'], wraplength=565, relief=BORDER)
-                title_label.grid(row=i, column=1, sticky=tk.NSEW)
+                # タイトル & ISBN-13
+                table_title_label = tk.Label(bookself_table_frame, text=item['title'], relief=BORDER, wraplength=450, width=57)
+                table_title_label.grid(row=i, column=1, sticky=tk.NSEW)
 
-                isbn_label = tk.Label(search_book_frame, text=item['isbn_13'], relief=BORDER)
+                isbn_label = tk.Label(bookself_table_frame, text=item['isbn_13'], relief=BORDER, wraplength=100, width=15)
                 isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
 
-                def delete_item(index):
-                    #削除前のデータを取得
-                    search_book_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
-                    # 指定されたインデックスの本を削除
-                    # current_directory = os.path.dirname(os.path.abspath(__file__))
-                    # json_file_path = os.path.join(current_directory, 'Bookshelf.json')
-
-                    # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
-                    search_book_data = BookshelfFunction.remove_index_elements(SHELF_JSON_PATH, search_book_data, index)
-
-                    # 画面の更新処理
-                    refresh_display(search_book_data)
-
-
-                def refresh_display(item):
-                    # 画面の更新処理を実装
-                    # 例: キャンバス内の要素を削除してから再描画するなど
-                    # 以下はキャンバス内の要素を全て削除する例
-                    for widget in search_book_frame.winfo_children():
-                        widget.destroy()
-
-                    # 画面に再度データを表示する処理を呼び出す
-                    search_button(item)
-
-                # 削除ボタンを追加
-                delete_button = tk.Button(search_book_frame, text="削除",command=lambda item=item, index=i: delete_item(index - 3))
-                border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
-                delete_button.grid(row=i, column=3)
-                
-
+                # 削除ボタン
+                button_border_label = tk.Label(bookself_table_frame, relief=BORDER, width=10) # 枠線
+                register_button = tk.Button(bookself_table_frame, text="削除", command=lambda item=item: on_delete_button_click(item))
+                button_border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
+                register_button.grid(row=i, column=3)
+            
             ### スクロールバー
-            search_book_frame.update() # フレームをアップデート
-
-            frame_height = search_book_frame.winfo_reqheight() # フレームの高さを取得
+            bookself_table_frame.update() # フレームの最新情報更新
+            frame_height = bookself_table_frame.winfo_reqheight() # フレームの高さを取得
             # print(frame_height) # debug
-            search_book_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
-            search_book_canvas.configure(yscrollcommand=scrollbar.set)
+            bookself_table_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
+            bookself_table_canvas.configure(yscrollcommand=scrollbar.set) # スクロールの設定
 
-        ### 配置
-        book_search_button = tk.Button(search_frame, text="検索", command=search_button) # 検索実行ボタン
-        book_search_button.pack(side="left")
+        """
+
+        諸々の配置
+
+        update_buttonはtest用です。
+        最後は消してください。
+
+        """
+
+        update_button = tk.Button(book_self_screen_frame, text="表の更新", command=update_table) # debug
+        update_button.pack() # debug
 
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y) # スクロールバー
-        search_book_canvas.pack(expand=True, fill=tk.BOTH) # キャンバス
-        search_book_canvas.create_window((0, 0), window=search_book_frame, anchor="nw") # キャンバスにフレームを設置
-        search_button(item)
+        bookself_table_canvas.pack(expand=True, fill=tk.BOTH) # キャンバス
+        bookself_table_canvas.create_window((0, 0), window=bookself_table_frame, anchor="nw") # キャンバスにフレームを設置
+
+        """
+
+        TODO: case1
+        なにもいらない
+
+        TODO: case2
+        jsonをここで読み込む
+        (input_dataに)
+        
+        """
+        self.input_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
+        update_table() # 最初に呼んでおく。
+
+
+
+
 
 """
 
 test用
 
-この辺はホーム画面に記述
+この辺は遷移前の画面などに記述
 
 """
 if __name__ == '__main__':
