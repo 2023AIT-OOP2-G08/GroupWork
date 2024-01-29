@@ -527,10 +527,6 @@ class BookshelfScreen(BaseScreen):
         self.input_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
         update_table() # 最初に呼んでおく。
 
-
-
-
-
 """
 
 test用
