@@ -7,6 +7,7 @@ import os
 import Processor.BookshelfFunction as BookshelfFunction
 # スクリプトのディレクトリパスを取得
 current_directory = os.path.dirname(os.path.abspath(__file__))
+NO_IMAGE_PATH = os.path.join(current_directory, 'Images/no_img.png')
 SHELF_JSON_PATH = os.path.join(current_directory, 'Bookshelf.json')
 
 from BaseScreen import BaseScreen # 親クラス
@@ -33,7 +34,7 @@ class BookshelfScreen(BaseScreen):
     def create_widgets(self):
         # Bookshelf.jsonからデータを取得
         item = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
-        """
+        
         # テストデータ
         test_data = [
             {
@@ -208,21 +209,21 @@ class BookshelfScreen(BaseScreen):
                 "description": "使いやすい理由とは何か 本書はUIにおけるデザインの定義から、 ハードおよびソフトによる制約、人間の心理による影響、 そして具体的にデザインを形にする方法までを、 図や画像を使いながら、わかりやすく体系的に解説していきます。 Webサイトの閲覧者やアプリのユーザーは、 いつのまにか迷ったり、わからなくなったり、 操作がしっくりこなかったりすることがあります。 本書を読むと「わかりやすさ」と「使いやすさ」の要点がわかるので、 ユーザーを迷わせない、最適なUIを見つけることができます。 デザイナーはもちろん、エンジニア、ディレクター、発注者など、 UI制作に関わる、あらゆる方におすすめの1冊です。 ＊本書は2013年刊行の『UIデザインの教科書』をもとにしていますが、 最新環境にあわせて、構成及び内容を全面的に書き直しています。 〈こんな人のための本です〉 ・UIデザインの基本的な考え方を学びたい ・わかりやすさや使いやすさの理由が知りたい ・最新のデバイスごとの違いやルールを知りたい ・UIデザインのチェック項目が知りたい ・UIデザインを説明するためのロジックが学びたい ...etc 〈目次〉 第1章 デザインの目的とUI/UX 第2章 物理的な制約 第3章 ソフトウェアの影響 第4章 人間の認知特性 第5章 階層と構造 第6章 ナビゲーションとインタラクション 第7章 デザインを形にする",
                 "publisher": "翔泳社",
                 "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+            },
+            {
+                "title": "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計　",
+                "isbn_13": "9784798155456",
+                "authors": [
+                    "原田秀司"
+                ],
+                "published_date": "2019-01-21",
+                "page_count": 210,
+                "description": "使いやすい理由とは何か 本書はUIにおけるデザインの定義から、 ハードおよびソフトによる制約、人間の心理による影響、 そして具体的にデザインを形にする方法までを、 図や画像を使いながら、わかりやすく体系的に解説していきます。 Webサイトの閲覧者やアプリのユーザーは、 いつのまにか迷ったり、わからなくなったり、 操作がしっくりこなかったりすることがあります。 本書を読むと「わかりやすさ」と「使いやすさ」の要点がわかるので、 ユーザーを迷わせない、最適なUIを見つけることができます。 デザイナーはもちろん、エンジニア、ディレクター、発注者など、 UI制作に関わる、あらゆる方におすすめの1冊です。 ＊本書は2013年刊行の『UIデザインの教科書』をもとにしていますが、 最新環境にあわせて、構成及び内容を全面的に書き直しています。 〈こんな人のための本です〉 ・UIデザインの基本的な考え方を学びたい ・わかりやすさや使いやすさの理由が知りたい ・最新のデバイスごとの違いやルールを知りたい ・UIデザインのチェック項目が知りたい ・UIデザインを説明するためのロジックが学びたい ...etc 〈目次〉 第1章 デザインの目的とUI/UX 第2章 物理的な制約 第3章 ソフトウェアの影響 第4章 人間の認知特性 第5章 階層と構造 第6章 ナビゲーションとインタラクション 第7章 デザインを形にする",
+                "publisher": "翔泳社",
+                "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
             }
-            # {
-            #     "title": "UIデザインの教科書［新版］ マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計マルチデバイス時代のインターフェース設計　",
-            #     "isbn_13": "9784798155456",
-            #     "authors": [
-            #         "原田秀司"
-            #     ],
-            #     "published_date": "2019-01-21",
-            #     "page_count": 210,
-            #     "description": "使いやすい理由とは何か 本書はUIにおけるデザインの定義から、 ハードおよびソフトによる制約、人間の心理による影響、 そして具体的にデザインを形にする方法までを、 図や画像を使いながら、わかりやすく体系的に解説していきます。 Webサイトの閲覧者やアプリのユーザーは、 いつのまにか迷ったり、わからなくなったり、 操作がしっくりこなかったりすることがあります。 本書を読むと「わかりやすさ」と「使いやすさ」の要点がわかるので、 ユーザーを迷わせない、最適なUIを見つけることができます。 デザイナーはもちろん、エンジニア、ディレクター、発注者など、 UI制作に関わる、あらゆる方におすすめの1冊です。 ＊本書は2013年刊行の『UIデザインの教科書』をもとにしていますが、 最新環境にあわせて、構成及び内容を全面的に書き直しています。 〈こんな人のための本です〉 ・UIデザインの基本的な考え方を学びたい ・わかりやすさや使いやすさの理由が知りたい ・最新のデバイスごとの違いやルールを知りたい ・UIデザインのチェック項目が知りたい ・UIデザインを説明するためのロジックが学びたい ...etc 〈目次〉 第1章 デザインの目的とUI/UX 第2章 物理的な制約 第3章 ソフトウェアの影響 第4章 人間の認知特性 第5章 階層と構造 第6章 ナビゲーションとインタラクション 第7章 デザインを形にする",
-            #     "publisher": "翔泳社",
-            #     "cover_image_url": "http://books.google.com/books/content?id=oH2GDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-            # }
         ]
-        """
+    
 
         """
 
@@ -249,20 +250,30 @@ class BookshelfScreen(BaseScreen):
             self.screen_hide()
             print('go home!!') # debug
 
+            from HomeScreen import HomeScreen # ホーム画面
+
+            home_screen = HomeScreen(self.root) # Home画面インスタンス化
+            home_screen.screen_show() # 画面を表示
 
         trans_home_button = tk.Button(title_frame, text='元の画面へ', command=trans_home_button)
         trans_home_button.pack(side='left')
 
-        screen_title_label = tk.Label(title_frame, text='書籍検索', font=("Helvetica", 30, "bold"))
+        screen_title_label = tk.Label(title_frame, text='本棚画面', font=("Helvetica", 30, "bold"))
         screen_title_label.pack(side="left", padx=245)
 
-        def trans_shelf_button(): # 本棚画面遷移
+        def trans_shelf_button(): # 検索画面遷移
 
             # Search画面を非表示
             self.screen_hide()
             print('go shelf!!') # debug
 
-        trans_shelf_button = tk.Button(title_frame, text='本棚画面へ', command=trans_shelf_button)
+            from BookSearchScreen import BookSearchScreen # 本棚画面
+            
+            search_screen = BookSearchScreen(self.root) # 本棚画面インスタンス化
+            search_screen.screen_show() # 本棚画面を表示
+
+
+        trans_shelf_button = tk.Button(title_frame, text='検索画面へ', command=trans_shelf_button)
         trans_shelf_button.pack(side='left')
 
 
@@ -294,31 +305,13 @@ class BookshelfScreen(BaseScreen):
         search_book_canvas.configure(yscrollcommand=scrollbar.set) # スクロールバーをキャンバスに設定
 
 
-        """
-
-        TODO: タッチパッドでスクロール
-
-        優先度はだいぶ低いが、ないと操作しずらい
-
-        
-        ↓動かないやつ(残してあるだけ)
-        def on_canvas_scroll(event): # タッチパッドでスクロール
-            # macOS上でのマウスホイールスクロールイベントに対応
-            if event.num == 5 or event.delta == -120:
-                search_book_canvas.yview_scroll(1, "units")
-            elif event.num == 4 or event.delta == 120:
-                search_book_canvas.yview_scroll(-1, "units")
-
-        # スクロールイベントをCanvasにバインドする
-        search_book_canvas.bind("<MouseWheel>", on_canvas_scroll)
-        search_book_canvas.bind("<Button-4>", on_canvas_scroll)  # Linux対応
-        search_book_canvas.bind("<Button-5>", on_canvas_scroll)  # Linux対応
-
-        """
+       
 
 
         def detail_button(item): # 詳細を表示
-        
+            
+            from BookDetailsScreen import BookDetailsScreen # 詳細画面
+
             book_details_screen_root = tk.Toplevel()
             book_details_screen = BookDetailsScreen(book_details_screen_root)
             book_details_screen.screen_show()
@@ -423,14 +416,14 @@ test用
 この辺はホーム画面に記述
 
 """
-# tkinterウィンドウを作成
-root = tk.Tk()
+if __name__ == '__main__':
 
-# クラスをインスタンス化
-book_search_screen = BookshelfScreen(root)
 
-# 画面を表示
-book_search_screen.screen_show()
+    root = tk.Tk() # tkinterウィンドウを作成
 
-### ウィンドウを表示
-root.mainloop()
+    book_self_screen = BookshelfScreen(root) # クラスをインスタンス化
+
+    book_self_screen.screen_show() # 画面を設定
+
+    root.mainloop() # イベントループ
+
