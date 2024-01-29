@@ -55,6 +55,8 @@ class BookSearchScreen(BaseScreen):
         book_search_screen_frame = self.frame # 全体のframeを設置
 
 
+
+
         ### タイトルフレーム
         title_frame = tk.Frame(book_search_screen_frame) 
         title_frame.pack(fill='x',pady=20)
@@ -92,13 +94,15 @@ class BookSearchScreen(BaseScreen):
             """
             self.screen_hide() # Search画面を非表示
 
-            from BookshelfScreen import Bookshelfscreen # 本棚画面
+            from BookshelfScreen import BookshelfScreen # 本棚画面
             
-            shelf_screen = Bookshelfscreen(self.root) # 本棚画面インスタンス化
+            shelf_screen = BookshelfScreen(self.root) # 本棚画面インスタンス化
             shelf_screen.screen_show() # 本棚画面を表示
 
         trans_shelf_button = tk.Button(title_frame, text='本棚画面へ', command=on_trans_shelf_button_click)
         trans_shelf_button.pack(side='left') # 本棚画面遷移ボタン
+
+
 
 
         ### 検索欄フレーム
@@ -113,15 +117,46 @@ class BookSearchScreen(BaseScreen):
         search_lbl = tk.Label(search_frame,text='検索：') # ラベル
         search_lbl.pack(side='left')
 
-        book_search_textbox = tk.Entry(search_frame,width=50) # テキストボックス
+        initial_text = '検索' # 初期値
+        initial_color = 'gray'
+        book_search_textbox = tk.Entry(search_frame, width=50) # テキストボックス
+        fg_color = book_search_textbox.cget('fg')  # デフォルトのテキストの色を取得
+        book_search_textbox.config(fg=initial_color) # 最初の文字の色
+        book_search_textbox.insert(0, initial_text) # 初期値
         book_search_textbox.pack(side='left', padx=5)
+        book_search_textbox.focus_set() # 最初にフォーカスを当てる
+
+        def on_book_search_textbox_click(event):
+            """
+
+            フォーカスを受け取ったら初期値を削除
+
+            """
+            if book_search_textbox.cget("fg") == initial_color: # 初期カラーだったら
+                book_search_textbox.delete(0, tk.END) # 文字を消す
+                book_search_textbox.config(fg=fg_color) # 文字の色を設定
+
+        book_search_textbox.bind("<FocusIn>", on_book_search_textbox_click)
+
+        def on_book_search_textbox_focus_out(event):
+            """
+            
+            フォーカスが外れたら初期値を戻す
+
+            """
+            if not book_search_textbox.get(): # 文字がなかったら
+                book_search_textbox.insert(0, initial_text) # 初期値を挿入
+                book_search_textbox.config(fg=initial_color) # 初期カラー設定
+
+        book_search_textbox.bind("<FocusOut>", on_book_search_textbox_focus_out)
+
+
 
 
         ### 検索結果の表フレーム
         search_result_table_canvas = tk.Canvas(book_search_screen_frame) # スクロールバーの為のキャンバス
         search_result_table_frame = tk.Frame(search_result_table_canvas, width=840, height=1200, bd=2, relief=BORDER) # 検索結果フレーム(初期設定)
         scrollbar = tk.Scrollbar(search_result_table_canvas, orient=tk.VERTICAL, command=search_result_table_canvas.yview) # スクロールバー
-        # debug用 bg='green', bg='red'
         """
 
         TODO: トラックパッドでスクロール
@@ -192,6 +227,8 @@ class BookSearchScreen(BaseScreen):
             その後、表として配置する
 
             """
+            if book_search_textbox.cget("fg") == initial_color: # 初期カラーだったら
+                return
 
             ### 初期化
             for widget in search_result_table_frame.winfo_children(): # table_frame内のすべての子ウィジェットを破棄
@@ -276,6 +313,8 @@ class BookSearchScreen(BaseScreen):
                 """
                 no_book_label = tk.Label(search_result_table_frame, text=search_book_data, font=("Helvetica", 20, "bold"))
                 no_book_label.pack(ipadx=340, pady=20, anchor="center")
+
+
 
 
         ### 配置
