@@ -225,7 +225,7 @@ class BookDetailsScreen(BaseScreen):
             self.root.destroy()
 
         # 画面遷移用のボタン
-        close_button = tk.Button(self.frame, text="前の画面へ", command=close_window)
+        close_button = tk.Button(self.frame, text="元の画面へ", command=close_window)
         close_button.pack()
         close_button.place(x=20, y=80)
 
