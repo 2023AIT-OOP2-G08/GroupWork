@@ -1,4 +1,5 @@
 import tkinter as tk # pyenvのpythonを入れ直した
+from tkinter import messagebox # アラートなどを表示できる
 import urllib.request # urlを読み込める
 import io # いろんなI/Oを使える 
 import os # パスを取得できる
@@ -182,8 +183,12 @@ class BookshelfScreen(BaseScreen):
 
             """
 
-            # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
-            BookshelfScreen.input_data = Processor.remove_index_elements(SHELF_JSON_PATH, BookshelfScreen.input_data, index - 1)
+            yes_no_result = messagebox.askyesno("確認", "本棚から削除しますか？")
+            if yes_no_result:  # yes が選択されたら削除
+                # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
+                BookshelfScreen.input_data = Processor.remove_index_elements(
+                    SHELF_JSON_PATH, BookshelfScreen.input_data, index - 1
+                )
 
             update_table()  # 画面の更新を行う関数を呼び出す
 
