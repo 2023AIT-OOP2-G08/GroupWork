@@ -47,7 +47,6 @@ class BookshelfScreen(BaseScreen):
 
         """
         ### 画面設定
-        self.root.title('本棚') # 画面タイトル
         self.root.geometry(SCREEN_SIZE) # 画面サイズ
         self.root.option_add('*font', [FONT_TYPE, 16]) # フォント
 
