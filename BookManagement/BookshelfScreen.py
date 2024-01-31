@@ -187,7 +187,9 @@ class BookshelfScreen(BaseScreen):
                 # BookshelfFunction.remove_index_elements を呼び出し、削除後のデータを取得
                 BookshelfScreen.input_data = Processor.remove_index_elements(
                     SHELF_JSON_PATH, BookshelfScreen.input_data, index - 1
-                )
+                ) 
+            else : # noの場合スルー
+                return
 
             update_table()  # 画面の更新を行う関数を呼び出す
 
