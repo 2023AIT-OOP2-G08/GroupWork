@@ -77,7 +77,7 @@ class BookshelfScreen(BaseScreen):
         trans_home_button.pack(side='left') # ホーム画面遷移ボタン
 
         screen_title_label = tk.Label(title_frame, text='My本棚', font=("Helvetica", 30, "bold"))
-        screen_title_label.pack(side="left", padx=236) # 真ん中の文字
+        screen_title_label.pack(side="left", padx=244) # 真ん中の文字
 
         def on_trans_search_button_click(): # 検索画面遷移
             """
@@ -102,7 +102,7 @@ class BookshelfScreen(BaseScreen):
         ### 表のフレーム
         # debug用bg付き
         bookself_table_canvas = tk.Canvas(book_self_screen_frame) # スクロールバーの為のキャンバス
-        bookself_table_frame = tk.Frame(bookself_table_canvas, width=840, height=0) # 検索結果フレーム(初期設定)
+        bookself_table_frame = tk.Frame(bookself_table_canvas,  width=840, height=1200, bd=2, relief=BORDER) # 検索結果フレーム(初期設定)
         scrollbar = tk.Scrollbar(bookself_table_canvas, orient=tk.VERTICAL, command=bookself_table_canvas.yview) # スクロールバー
 
         """
@@ -208,52 +208,65 @@ class BookshelfScreen(BaseScreen):
                 widget.destroy()
             BookshelfScreen.photos = [] # 検索結果の画像を初期化
 
-            headers = ['表紙', 'タイトル', 'ISBN-13', 'Action'] # 列名
-            for j, header in enumerate(headers): # header配置
-                header_label = tk.Label(bookself_table_frame, text=header, relief=BORDER)
-                header_label.grid(row=0, column=j, sticky='ew')
+            if bookself_data: # 本がある場合
+
+                headers = ['表紙', 'タイトル', 'ISBN-13', 'Action'] # 列名
+                for j, header in enumerate(headers): # header配置
+                    header_label = tk.Label(bookself_table_frame, text=header, relief=BORDER)
+                    header_label.grid(row=0, column=j, sticky='ew')
+                
+                for i, item in enumerate(bookself_data, start=1): # 表の要素配置(row=3から)
+
+                    # 画像のダウンロード
+                    if item['cover_image_url'] != 'No cover image available': # 画像がある場合
+                        with urllib.request.urlopen(item['cover_image_url']) as u:
+                            raw_data = u.read() # urlから画像をダウンロード
+                        im = Image.open(io.BytesIO(raw_data)) # ダウンロードした画像データをPIL.Imageオブジェクトに変換
+                        im = im.resize((im.width // 2, im.height // 2)) # 画像サイズ変更
+                    
+                    else: # 画像がない場合
+                        im = Image.open(NO_IMAGE_PATH) # no_imgをダウンロード
+                        im = im
+                    
+                    photo = ImageTk.PhotoImage(im) # ImageTk.PhotoImageオブジェクトに変換
+                    BookshelfScreen.photos.append(photo)  # 画像をリストに追加
+
+                    # ボタンに画像を設定
+                    book_border_label = tk.Label(bookself_table_frame, relief=BORDER) # 枠線
+                    book_button = tk.Button(bookself_table_frame, image=photo, command=lambda item=item: on_detail_button_click(item))
+                    book_border_label.grid(row=i, column=0, sticky=tk.NSEW) # 枠線
+                    book_button.grid(row=i, column=0)
+                    
+                    # タイトル & ISBN-13
+                    table_title_label = tk.Label(bookself_table_frame, text=item['title'], relief=BORDER, wraplength=450, width=57)
+                    table_title_label.grid(row=i, column=1, sticky=tk.NSEW)
+
+                    isbn_label = tk.Label(bookself_table_frame, text=item['isbn_13'], relief=BORDER, wraplength=100, width=15)
+                    isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
+
+                    # 削除ボタン
+                    button_border_label = tk.Label(bookself_table_frame, relief=BORDER, width=10) # 枠線
+                    register_button = tk.Button(bookself_table_frame, text="削除", command=lambda item=item, i=i: on_delete_button_click(item, i))
+                    button_border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
+                    register_button.grid(row=i, column=3)
+                
             
-            for i, item in enumerate(bookself_data, start=1): # 表の要素配置(row=3から)
+                ### スクロールバー
+                bookself_table_frame.update() # フレームの最新情報更新
+                frame_height = bookself_table_frame.winfo_reqheight() # フレームの高さを取得
+                # print(frame_height) # debug
+                bookself_table_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
+                bookself_table_canvas.configure(yscrollcommand=scrollbar.set) # スクロールの設定
 
-                # 画像のダウンロード
-                if item['cover_image_url'] != 'No cover image available': # 画像がある場合
-                    with urllib.request.urlopen(item['cover_image_url']) as u:
-                        raw_data = u.read() # urlから画像をダウンロード
-                    im = Image.open(io.BytesIO(raw_data)) # ダウンロードした画像データをPIL.Imageオブジェクトに変換
-                    im = im.resize((im.width // 2, im.height // 2)) # 画像サイズ変更
-                
-                else: # 画像がない場合
-                    im = Image.open(NO_IMAGE_PATH) # no_imgをダウンロード
-                    im = im
-                
-                photo = ImageTk.PhotoImage(im) # ImageTk.PhotoImageオブジェクトに変換
-                BookshelfScreen.photos.append(photo)  # 画像をリストに追加
+            else : # 本が見つからなかった場合
+                """
 
-                # ボタンに画像を設定
-                book_border_label = tk.Label(bookself_table_frame, relief=BORDER) # 枠線
-                book_button = tk.Button(bookself_table_frame, image=photo, command=lambda item=item: on_detail_button_click(item))
-                book_border_label.grid(row=i, column=0, sticky=tk.NSEW) # 枠線
-                book_button.grid(row=i, column=0)
-                
-                # タイトル & ISBN-13
-                table_title_label = tk.Label(bookself_table_frame, text=item['title'], relief=BORDER, wraplength=450, width=57)
-                table_title_label.grid(row=i, column=1, sticky=tk.NSEW)
+                No books foundを出す。
 
-                isbn_label = tk.Label(bookself_table_frame, text=item['isbn_13'], relief=BORDER, wraplength=100, width=15)
-                isbn_label.grid(row=i, column=2, sticky=tk.NSEW)
+                """
+                no_book_label = tk.Label(bookself_table_frame, text='No books', font=("Helvetica", 20, "bold"))
+                no_book_label.pack(ipadx=365, pady=20, anchor="center")
 
-                # 削除ボタン
-                button_border_label = tk.Label(bookself_table_frame, relief=BORDER, width=10) # 枠線
-                register_button = tk.Button(bookself_table_frame, text="削除", command=lambda item=item, i=i: on_delete_button_click(item, i))
-                button_border_label.grid(row=i, column=3, sticky=tk.NSEW) # 枠線
-                register_button.grid(row=i, column=3)
-            
-            ### スクロールバー
-            bookself_table_frame.update() # フレームの最新情報更新
-            frame_height = bookself_table_frame.winfo_reqheight() # フレームの高さを取得
-            # print(frame_height) # debug
-            bookself_table_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
-            bookself_table_canvas.configure(yscrollcommand=scrollbar.set) # スクロールの設定
 
         """
 
@@ -268,6 +281,12 @@ class BookshelfScreen(BaseScreen):
         # 最初に一度jsonを読み込む
         BookshelfScreen.input_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
         update_table() # 最初に呼んでおく。
+
+        bookself_table_frame.update() # フレームの最新情報更新
+        frame_height = bookself_table_frame.winfo_reqheight() # フレームの高さを取得
+        # print(frame_height) # debug
+        bookself_table_canvas.configure(scrollregion=(0, 0, 0, frame_height)) # スクロールの設定
+        bookself_table_canvas.configure(yscrollcommand=scrollbar.set) # スクロールの設定
 
 
 
