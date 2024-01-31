@@ -2,7 +2,7 @@ import tkinter as tk # pyenvのpythonを入れ直した
 import urllib.request # urlを読み込める
 import io # いろんなI/Oを使える 
 import os # パスを取得できる
-import Processor.BookshelfFunction as BookshelfFunction
+import Processor
 
 from BaseScreen import BaseScreen # 親クラス
 from PIL import Image, ImageTk # pip3 install Pillowでインス
@@ -262,7 +262,7 @@ class BookselfTest(BaseScreen):
         bookself_table_canvas.create_window((0, 0), window=bookself_table_frame, anchor="nw") # キャンバスにフレームを設置
 
         # 最初に一度jsonを読み込む
-        BookselfTest.input_data = BookshelfFunction.get_bookshelf(SHELF_JSON_PATH)
+        BookselfTest.input_data = Processor.get_bookshelf(SHELF_JSON_PATH)
         update_table() # 最初に呼んでおく。
 
 
