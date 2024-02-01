@@ -24,7 +24,6 @@ GroupWork/BookManagement/main.pyを実行してください
 $ source .env/bin/activate
 (.env) $ python -u BookManagement/main.py
 </pre>
-- 実行時bookshelf.jsonの内容が空の場合エラーが発生します
 
 ## 各画面説明
 ### ホーム画面
