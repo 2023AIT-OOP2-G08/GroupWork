@@ -53,7 +53,7 @@ $ source .env/bin/activate
 2. Tkinter
 	- Python標準機能であり、Java-Swingの経験があるため学習に苦労しないと考えた
 3. JSONファイルへデータの保存
-	- Python標準機能で取得するデータもJSON形式であるため
+	- Python標準機能であり、取得するデータもJSON形式であるため
 
 
 ## 仕様案
