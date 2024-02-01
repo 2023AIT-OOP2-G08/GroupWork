@@ -11,6 +11,7 @@ $ cd GroupWork
 $ python -m venv .env
 $ source .env/bin/activate
 (.env) $ pip install -r requirements.txt
+(.env) $ pip3 install Pillow
 </pre>
 
 ## Require
