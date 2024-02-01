@@ -24,6 +24,7 @@ GroupWork/BookManagement/main.pyを実行してください
 $ source .env/bin/activate
 (.env) $ python -u BookManagement/main.py
 </pre>
+- 実行時bookshelf.jsonの内容が空の場合エラーが発生します
 
 ## 各画面説明
 ### ホーム画面
@@ -46,6 +47,15 @@ $ source .env/bin/activate
 ### 詳細画面
 ![](img/detail.png)
 - 検索画面とMy本棚画面の書籍の表紙を押すと、押した書籍の詳細情報を表示する
+
+## 技術選定
+1. GoogleBooksAPI
+	- URL形式のリクエストのみでJSONデータを取得可能であり実装が容易と考えた
+2. Tkinter
+	- Python標準機能であり、Java-Swingの経験があるため学習に苦労しないと考えた
+3. JSONファイルへデータの保存
+	- Python標準機能で取得するデータもJSON形式であるため
+
 
 ## 仕様案
 書籍管理アプリ
