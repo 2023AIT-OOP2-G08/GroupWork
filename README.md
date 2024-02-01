@@ -24,7 +24,7 @@ json==2.0.9
 </pre>
 
 ## Usage
-- main.pyを実行
+$ python -u BookManagement/main.py
 
 
 
