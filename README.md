@@ -1,6 +1,4 @@
 # 書籍管理アプリ
-## Check List
-- [CheckList.xlsx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14048695/CheckList.xlsx)
 
 ## 発表資料
 - [オブ演発表資料.pptx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14066010/default.pptx)
@@ -196,6 +194,10 @@ JSONデータの保存形式
 "cover_image_url": "http://books.google.com/books/content?id=Wx1dLwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
 }
 ```
+
+
+## Check List
+- [CheckList.xlsx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14048695/CheckList.xlsx)
 
 ## 実装の参考になりそうなサイトなど
 PythonでのTkinter、GoogleBooksAPIに関するサイトをまとめました。
