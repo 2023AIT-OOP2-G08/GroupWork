@@ -30,6 +30,27 @@ $ source .env/bin/activate
 (.env) $ python -u BookManagement/main.py
 </pre>
 
+## 各画面説明
+### ホーム画面
+![](img/home.png)
+- プログラム実行時最初の画面
+- 検索画面かMy本棚画面へ遷移する
+### 検索画面
+![](img/search.png)
+- 検索画面(タイトル、ISBN-13、著者)から一つ選んでテキストボックスに入力して検索
+![](img/searchresult.png)
+![](img/registeredyn.png)
+- 登録ボタンを押した時再確認する
+![](img/alreadyregistered.png)
+- 登録ボタンを押した書籍がすでに登録されていることを知らせる
+### My本棚画面
+![](img/mybooks.png)
+- 登録した書籍を表示する
+![](img/deleteyn.png)
+- 削除ボタンを押した時再確認する
+### 詳細画面
+![](img/detail.png)
+- 検索画面とMy本棚画面の書籍の表紙を押すと、押した書籍の詳細情報を表示する
 
 ## 仕様案
 書籍管理アプリ
