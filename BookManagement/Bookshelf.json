@@ -1,1 +1,15 @@
-[]
+[
+  {
+"title": "リーダブルコード",
+"isbn_13": "9784873115658",
+"authors": [
+"Dustin Boswell",
+"Trevor Foucher"
+],
+"published_date": "2012-06",
+"page_count": 237,
+"description": "読んでわかるコードの重要性と方法について解説",
+"publisher": "O'Reilly Media, Inc.",
+"cover_image_url": "http://books.google.com/books/content?id=Wx1dLwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+}
+]
