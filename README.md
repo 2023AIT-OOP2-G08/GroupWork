@@ -24,8 +24,9 @@ json==2.0.9
 </pre>
 
 ## Usage
+<pre>
 $ python -u BookManagement/main.py
-
+</pre>
 
 
 ## 仕様案
