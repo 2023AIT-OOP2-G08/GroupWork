@@ -24,8 +24,10 @@ json==2.0.9
 </pre>
 
 ## Usage
+GroupWork/BookManagement/main.pyを実行してください
 <pre>
-$ python -u BookManagement/main.py
+$ source .env/bin/activate
+(.env) $ python -u BookManagement/main.py
 </pre>
 
 
