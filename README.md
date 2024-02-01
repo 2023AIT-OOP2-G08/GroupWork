@@ -1,9 +1,4 @@
 # 書籍管理アプリ
-
-## 発表資料
-- [オブ演発表資料.pptx](https://github.com/2023AIT-OOP2-G08/GroupWork/files/14066010/default.pptx)
-
-
 ## Initial Setting
 <pre>
 $ git clone https://github.com/2023AIT-OOP2-G08/GroupWork.git
